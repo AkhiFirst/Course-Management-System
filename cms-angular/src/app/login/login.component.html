@@ -1,0 +1,7 @@
+<h3 style="color:green">Student List:</h3>
+ 
+  <a *ngFor="let student of students | async">
+    <div>
+      <h4>{{student.id}} - {{student.firstName}}</h4>
+    </div>
+  </a>
