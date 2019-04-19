@@ -3,17 +3,12 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
 import { HttpClientModule } from '@angular/common/http';
-import { LoginServiceService } from './login/login-service.service';
-import { ConfigComponent } from './config/config.component';
 import { UserModule } from './user/user.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    LoginComponent,
-    ConfigComponent,
+    AppComponent
   ],
   imports: [
     BrowserModule,
@@ -21,7 +16,7 @@ import { UserModule } from './user/user.module';
     AppRoutingModule,
     UserModule
   ],
-  providers: [LoginServiceService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
