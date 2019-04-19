@@ -1,5 +1,12 @@
 package com.unt.coursemanagentsys.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.Iterator;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -7,7 +14,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.unt.coursemanagentsys.service.CourseManagementSysServiceImpl;
 import com.unt.coursemanagentsys.util.StudentVO;
@@ -32,5 +43,23 @@ public class CourseManagementSysController {
 		
 		service.register(user);
 		// return new ResponseEntity<User>(user,HttpStatus.OK);
+	}
+	
+	@PostMapping(path = "/addAssignemnt")
+	public String addAssignemnt(@RequestParam("uploadFile") List<MultipartFile> multipartFiles) {
+		System.out.println("in addAssignemnt"+multipartFiles.size());
+		multipartFiles.forEach(multiparFile -> { File file = new File("F:\\Akhila project\\Files\\" + multiparFile.getOriginalFilename());
+		System.out.println("multiparFile.getOriginalFilename()::"+multiparFile.getOriginalFilename());
+		try {
+			multiparFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		});
+		return "Success";
 	}
 }

@@ -5,6 +5,8 @@ import { RegisterComponent } from './components/register/register.component';
 import { UserService } from './services/user.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
+import { UserRoutingModule } from './user-routing.module';
+import { MatCardModule } from '@angular/material';
 
 @NgModule({
   declarations: [LoginComponent, RegisterComponent],
@@ -12,11 +14,13 @@ import { Http, HttpModule } from '@angular/http';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpModule
+    HttpModule,
+    UserRoutingModule,
+    MatCardModule
   ],
   providers: [
     UserService
   ],
-  exports: [LoginComponent,RegisterComponent]
+  // exports: [LoginComponent,RegisterComponent]
 })
 export class UserModule { }
