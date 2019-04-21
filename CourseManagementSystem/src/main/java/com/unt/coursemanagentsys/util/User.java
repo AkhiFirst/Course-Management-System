@@ -8,6 +8,9 @@ private String email;
 private String deptName;
 private String username;
 private String password;
+private Boolean userExists=false;
+private Boolean validUser=false;
+
 public String getFirstname() {
 	return firstname;
 }
@@ -32,8 +35,7 @@ public String getDeptName() {
 public void setDeptName(String deptName) {
 	this.deptName = deptName;
 }
-private Boolean userExists=false;
-private Boolean validUser=false;
+
 
 public Boolean getValidUser() {
 	return validUser;

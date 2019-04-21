@@ -34,15 +34,12 @@ public class CourseManagementSysController {
 
 	@PostMapping(path = "/login", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public User userValidate(@RequestBody User user) {
-		return service.userValidate(user.getUsername().toUpperCase(), user.getPassword());
-		// return new ResponseEntity<User>(user,HttpStatus.OK);
+		return service.userValidate(user.getUsername(), user.getPassword());
 	}
 
 	@PostMapping(path = "/register", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public void register(@RequestBody User user) {
-		
-		service.register(user);
-		// return new ResponseEntity<User>(user,HttpStatus.OK);
+	public Boolean register(@RequestBody User user) {
+		return service.register(user);
 	}
 	
 	@PostMapping(path = "/addAssignemnt")

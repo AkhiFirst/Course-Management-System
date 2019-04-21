@@ -13,7 +13,8 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 
 	public User userValidate(String username, String password) {
 		User user = new User();
-		if (dao.userExists(username) == 0) {
+		if (dao.userExists(username)== 0)
+		{
 			user.setUsername(username);
 			return user;
 		} else {
@@ -26,8 +27,11 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 	}
 
 	@Override
-	public void register(User user) {
+	public Boolean register(User user) {
 		// TODO Auto-generated method stub
-		dao.register(user);
+		if(dao.userIdProvided(user.getId())!=0 &&dao.register(user)==true)
+			return true;
+		else
+			return false;
 	}
 }

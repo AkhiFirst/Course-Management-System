@@ -1,4 +1,6 @@
 <h2>Register</h2>
+<div class="signin-content">
+<mat-card>
 <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
     <div class="form-group">
         <label for="firstName">First Name</label>
@@ -35,4 +37,6 @@
         <!-- <a [routerLink]="['/login']" class="btn btn-link">Cancel</a> -->
     </div>
 </form>
+</mat-card>
+</div>
 <!-- http://jasonwatmore.com/post/2018/05/16/angular-6-user-registration-and-login-example-tutorial -->

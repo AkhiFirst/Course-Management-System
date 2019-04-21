@@ -21,38 +21,39 @@ public class CourseManagementSysDaoImpl implements CourseManagementSysDao {
 	// this.jdbcTemplate = new JdbcTemplate(dataSource);
 //} 
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public User userValidate(String username) {
 		// TODO Auto-generated method stub
 		String sql = "select * from userdetails where username=?";
-		return jdbcTemplate.queryForObject(sql, new Object[] { username }, new BeanPropertyRowMapper<>(User.class));
+		return jdbcTemplate.queryForObject(sql, new Object[] { username.toUpperCase() }, new BeanPropertyRowMapper<>(User.class));
 	}
 
 	@Override
 	public int userExists(String username) {
 		// TODO Auto-generated method stub
 		String sql = "SELECT COUNT(*) FROM userdetails where username=?";
-		return jdbcTemplate.queryForObject(sql, new Object[] { username }, Integer.class);
+		return jdbcTemplate.queryForObject(sql, new Object[] { username.toUpperCase() }, Integer.class);
 	}
 
 	@Override
 	public int userIdProvided(String id) {
 		// TODO Auto-generated method stub
-		String sql = "SELECT COUNT(*) FROM userdetails where id=?";
+		String sql = "SELECT COUNT(*) FROM university where id=?";
 		return jdbcTemplate.queryForObject(sql, new Object[] { id }, Integer.class);
 	}
 
 	@Override
-	public void register(User user) {
+	public Boolean register(User user) {
 		// TODO Auto-generated method stub
-		String sql = "UPDATE userdetails SET firstname=?,lastname=?,email=?,dept_name=?,username=?,password=? where id=?";
-		Object[] args = { user.getFirstname(), user.getLastname(), user.getEmail().toLowerCase(), user.getDeptName(),
-				user.getUsername().toUpperCase(), user.getPassword(), user.getId() };
+		String sql = "INSERT INTO userdetails values(?,?,?,?,?,?,?)";
+		Object[] args = { user.getId(), user.getFirstname(), user.getLastname(), user.getEmail().toLowerCase(),
+				user.getDeptName(), user.getUsername().toUpperCase(), user.getPassword() };
 		int[] argTypes = { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.VARCHAR,
 				Types.VARCHAR };
-		jdbcTemplate.update(sql, args, argTypes);
-		//return null;
+		if (jdbcTemplate.update(sql, args, argTypes) == 1)
+			return true;
+		else
+			return false;
 	}
 
 }
