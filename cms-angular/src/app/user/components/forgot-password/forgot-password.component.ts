@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { PasswordValidation } from '../../password.validation';
-import { UsernameValidation } from '../../Username.validation';
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,7 +16,7 @@ passwordReset: number;
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.resetPasswordForm = this.formBuilder.group({ id: ['', Validators.required], email: ['', Validators.required], username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]], confirmUsername: ['', [Validators.required]], password: ['', [Validators.required, Validators.minLength(6)]], confirmPassword: ['', [Validators.required]] }, {validator1: [PasswordValidation.MatchPassword], validator2: [UsernameValidation.MatchUsername]});
+    this.resetPasswordForm = this.formBuilder.group({ id: ['', Validators.required], email: ['', Validators.required], username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]], confirmUsername: ['', [Validators.required]], password: ['', [Validators.required, Validators.minLength(6)]], confirmPassword: ['', [Validators.required]] }, {validator: [PasswordValidation.MatchPassword,PasswordValidation.MatchUsername]});
   }
   get f() { return this.resetPasswordForm.controls; }
   onSubmit() {
