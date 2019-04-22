@@ -1,9 +1,12 @@
 package com.unt.coursemanagentsys.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.unt.coursemanagentsys.dao.CourseManagementSysDaoImpl;
+import com.unt.coursemanagentsys.util.Department;
 import com.unt.coursemanagentsys.util.User;
 
 @Service
@@ -27,11 +30,49 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 	}
 
 	@Override
-	public Boolean register(User user) {
+	public int register(User user) {
 		// TODO Auto-generated method stub
-		if(dao.userIdProvided(user.getId())!=0 &&dao.register(user)==true)
-			return true;
+		if(dao.userIdProvided(user.getId())!=0) {// &&dao.register(user)==true)
+			if(dao.userIdExists(user.getId())==0) {
+				if(dao.userExists(user.getUsername())==0) {
+					if(dao.register(user)==true)	
+						return 1;
+					else
+						return 0;
+				}
+				else
+					return 2;
+			}
+			else
+				return 3;
+		}
 		else
-			return false;
+			return 4;
+	}
+
+	@Override
+	public List<Department> fetchAllDepartments() {
+		// TODO Auto-generated method stub
+		return dao.fetchAllDepartments();
+	}
+
+	@Override
+	public int resetPassword(User user) {
+		// TODO Auto-generated method stub
+		if(dao.userIdExists(user.getId())!=0) {
+			if(user.getEmail().equals(dao.getEmail(user.getId())))
+			{
+				if(dao.resetPassword(user)==true)
+					return 1;
+				else
+					return 0;
+			}
+			else
+				return 2;
+				
+					
+		}
+		else
+		return 3;
 	}
 }

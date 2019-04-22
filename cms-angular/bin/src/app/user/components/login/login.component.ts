@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   user: User;
   submitted = false;
+  loading = false;
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
@@ -21,6 +22,7 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
   onSubmit() {
     this.submitted=true;
+    this.loading=true;
     if (this.loginForm.invalid)
       return;
     this.userService.login(this.loginForm.value).subscribe(resp => {
@@ -39,6 +41,7 @@ export class LoginComponent implements OnInit {
           this.userService.sendSubmitMessage("Success::"+this.user.username + "logged in Successfully");
           this.router.navigate(['register']);
         }
+        this.loading=false;
       }
     });
   }

@@ -2,8 +2,8 @@ package com.unt.coursemanagentsys.util;
 
 public class User {
 private String id;
-private String firstname;
-private String lastname;
+private String firstName;
+private String lastName;
 private String email;
 private String deptName;
 private String username;
@@ -11,17 +11,17 @@ private String password;
 private Boolean userExists=false;
 private Boolean validUser=false;
 
-public String getFirstname() {
-	return firstname;
+public String getFirstName() {
+	return firstName;
 }
-public void setFirstname(String firstname) {
-	this.firstname = firstname;
+public void setFirstName(String firstName) {
+	this.firstName = firstName;
 }
-public String getLastname() {
-	return lastname;
+public String getLastName() {
+	return lastName;
 }
-public void setLastname(String lastname) {
-	this.lastname = lastname;
+public void setLastName(String lastName) {
+	this.lastName = lastName;
 }
 public String getEmail() {
 	return email;

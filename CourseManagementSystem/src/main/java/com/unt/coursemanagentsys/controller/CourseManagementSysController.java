@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.unt.coursemanagentsys.service.CourseManagementSysServiceImpl;
+import com.unt.coursemanagentsys.util.Department;
 import com.unt.coursemanagentsys.util.StudentVO;
 import com.unt.coursemanagentsys.util.User;
 
@@ -38,8 +39,18 @@ public class CourseManagementSysController {
 	}
 
 	@PostMapping(path = "/register", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
-	public Boolean register(@RequestBody User user) {
+	public int register(@RequestBody User user) {
 		return service.register(user);
+	}
+	
+	@GetMapping(path="/fetchDeptNames", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public List<Department> fetchAllDepartments(){
+		return service.fetchAllDepartments();
+	}
+	
+	@PostMapping(path="/resetPassword", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public int resetPassword(@RequestBody User user){
+		return service.resetPassword(user);
 	}
 	
 	@PostMapping(path = "/addAssignemnt")
@@ -59,4 +70,6 @@ public class CourseManagementSysController {
 		});
 		return "Success";
 	}
+	
+	
 }
