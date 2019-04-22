@@ -5,6 +5,7 @@ import { User } from '../../model/user';
 import { Department } from '../../model/department';
 import { Router } from '@angular/router';
 import { PasswordValidation } from '../../password.validation';
+import { DropdownValidation } from '../../dropdown.required.validation';
 
 
 @Component({
@@ -24,16 +25,17 @@ export class RegisterComponent implements OnInit {
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.registerForm = this.formBuilder.group({ id: ['', Validators.required], firstName: ['', Validators.required], lastName: ['', Validators.required], email: ['', Validators.required], deptName: ['', Validators.required], username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]], password: ['', [Validators.required, Validators.minLength(6)]], confirmPassword: ['', [Validators.required]] }, { validator: PasswordValidation.MatchPassword });
+    this.registerForm = this.formBuilder.group({ id: ['', Validators.required], firstName: ['', Validators.required], lastName: ['', Validators.required], email: ['', Validators.required], deptName: '', username: ['', [Validators.required, Validators.minLength(6), Validators.maxLength(6)]], password: ['', [Validators.required, Validators.minLength(6)]], confirmPassword: ['', [Validators.required]] }, { validator:[PasswordValidation.MatchPassword,DropdownValidation.DeptRequired]});
     this.fetchDepartments();
   }
-  get f() { return this.registerForm.controls; }
+  get f() { return this.registerForm.controls;}
   onSubmit() {
-    this.submitted = true;
+    this.submitted=true;
     if (this.registerForm.invalid)
       return;
     this.userService.register(this.registerForm.value).subscribe(resp => {
-      let flag = resp.json(); this.userRegistered = flag;
+      let flag = resp.json(); 
+      this.userRegistered = flag;
 
       if (this.userRegistered == 1) {
         this.userService.sendSubmitMessage("User Registered Successfully");
@@ -54,7 +56,7 @@ export class RegisterComponent implements OnInit {
       }
       else {
         this.userService.sendSubmitMessage("Invalid user");
-        alert("Invalid User ID. Please contact your university");
+        alert("Please enter your user ID provided by the university or contact university help");
       }
     });
   }
