@@ -7,16 +7,18 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Http, HttpModule } from '@angular/http';
 import { UserRoutingModule } from './user-routing.module';
 import { MatCardModule } from '@angular/material';
+import { ForgotPasswordComponent } from './components/forgot-password/forgot-password.component';
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, ForgotPasswordComponent],
   imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
     UserRoutingModule,
-    MatCardModule
+    MatCardModule,
+    
   ],
   providers: [
     UserService

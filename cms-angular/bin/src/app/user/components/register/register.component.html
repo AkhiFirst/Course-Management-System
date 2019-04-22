@@ -9,46 +9,108 @@
 <div class="limiter">
         <div class="container-login100">
             <div class="wrap-login100">
-<div class="signin-content">
-<mat-card>
-<form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <div class="form-group">
-        <label for="firstName">First Name</label>
-        <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
-        <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
-            <div *ngIf="f.firstName.errors.required">First Name is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="lastName">Last Name</label>
-        <input type="text" formControlName="lastName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
-        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
-            <div *ngIf="f.lastName.errors.required">Last Name is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="username">Username</label>
-        <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-            <div *ngIf="f.username.errors.required">Username is required</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <label for="password">Password</label>
-        <input type="password" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-        <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-            <div *ngIf="f.password.errors.required">Password is required</div>
-            <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
-        </div>
-    </div>
-    <div class="form-group">
-        <button [disabled]="loading" class="btn btn-primary">Register</button>
-        <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
-        <!-- <a [routerLink]="['/login']" class="btn btn-link">Cancel</a> -->
-    </div>
+                   
+<!-- <div class="signin-content"> -->
+<!-- <mat-card> -->
+<form [formGroup]="registerForm" class= login100-form (ngSubmit)="onSubmit()">
+        <span class="login100-form-title">
+                User Registration
+            </span>
+            <div class="wrap-input100 form-group">
+                    <input type="text" formControlName="id" class=" input100 form-control" placeholder="User ID"
+                        [ngClass]="{ 'is-invalid': submitted && f.id.errors }" />
+                        <span class="focus-input100"></span>
+                    <div *ngIf="submitted && f.id.errors" class="invalid-feedback">
+                        <div *ngIf="f.id.errors.required">ID is required</div>
+                    </div>
+                </div>
+                <div class="wrap-input100 wrap-right form-group">
+                        <input type="email" email formControlName="email" class=" input100 form-control" placeholder="Email ID"
+                            [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                            <span class="focus-input100"></span>
+                        <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                            <div *ngIf="f.email.errors.required">Email ID is required</div>
+                            <div *ngIf="f.email.errors.email">Enter a valid email address</div>
+                        </div>
+                    </div>
+            <div class="wrap-input100 form-group">
+                    <input type="text" formControlName="firstName" class=" input100 form-control" placeholder="First Name"
+                        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+                        <span class="focus-input100"></span>
+                    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                        <div *ngIf="f.firstName.errors.required">Firstname is required</div>
+                    </div>
+                </div>
+                <div class="wrap-input100 wrap-right form-group">
+                        <input type="text" formControlName="username" class=" input100 form-control" placeholder="Username"
+                            [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
+                            <span class="focus-input100"></span>
+                        <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                            <div *ngIf="f.username.errors.required">Username is required</div>
+                            <div *ngIf="f.username.errors.maxlength">Password must have 6 characters</div>
+                            <div *ngIf="f.username.errors.minlength">Password must have 6 characters</div>
+                        </div>
+                    </div>
+                <div class="wrap-input100 form-group">
+                        <input type="text" formControlName="lastName" class=" input100 form-control" placeholder="Last Name"
+                            [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+                            <span class="focus-input100"></span>
+                        <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="f.lastName.errors.required">Lastname is required</div>
+                        </div>
+                    </div>
+                    <div class="wrap-input100 wrap-right form-group">
+                            <input type="password" formControlName="password" class=" input100 form-control" placeholder="Password"
+                                [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
+                                <span class="focus-input100"></span>
+                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.errors.required">Password is required</div>
+                                <div *ngIf="f.password.errors.minlength">Password must be at least 6 characters</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                        <select class="dropdown" required formControlName="deptName">
+                                <span class="focus-input100"></span>
+                                <option  value="" disabled selected>Department Name</option>
+                                <option  *ngFor="let dept of departments" value={{dept.deptName}}>
+                                    {{dept.deptName}}
+                                </option>
+                            </select>
+                            <div *ngIf="submitted && f.deptName.errors" class="invalid-feedback">
+                                <div *ngIf="f.password.deptName.required">Please select your department</div>
+                            </div>
+                  </div>
+                                
+                                    <div class="wrap-input100 wrap-right form-group">
+                                            <input type="password" formControlName="confirmPassword" class=" input100 form-control" placeholder="Confirm password"
+                                                [ngClass]="{ 'is-invalid': submitted && f.confirmPassword.errors }" />
+                                                <span class="focus-input100"></span>
+                                            <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                                                <div *ngIf="f.confirmPassword.errors.required">Confirm Password is required</div>
+                                            </div>
+                                             <div *ngIf="submitted && f.confirmPassword.errors" class="invalid-feedback">
+                                                <div *ngIf="f.confirmPassword.errors.MatchPassword ">Password and Confirm Password doesn't match</div>
+                                            </div>
+                                        </div>
+                                        <div class="container-login100-form-btn form-group">
+                                                <button type="submit" [disabled]="loading" class="login100-form-btn btn btn-primary">SUBMIT</button>
+                                                <img *ngIf="loading" src="assets/images/U3MS.gif" />
+                                                
+                                           
+                                             <!-- <div class="container-login100-form-btn cancel form-group">
+                                                    <button type="button" [disabled]="loading" class="login100-form-btn btn btn-primary">CANCEL</button>
+                                                    <img *ngIf="loading" src="assets/images/U3MS.gif" />
+                                                   
+                                                    
+                                                </div>  -->
+                                                
+                                                        <a class="txt2" [routerLink]="['/login']">
+                                                            Go back to Login
+                                                            <i class="fa fa-long-arrow-right m-l-5" aria-hidden="true"></i>
+                                                        </a>
+                                                    </div>
 </form>
-</mat-card>
-</div>
+<!-- </mat-card> -->
 </div>
 </div>
 </div>

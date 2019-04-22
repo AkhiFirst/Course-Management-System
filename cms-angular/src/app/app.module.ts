@@ -20,7 +20,7 @@ import { CourseModule } from './course/course.module';
     UserModule,
     AppRoutingModule,
     AssignmentModule,
-    CourseModule
+    CourseModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

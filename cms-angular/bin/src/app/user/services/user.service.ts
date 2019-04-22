@@ -8,41 +8,60 @@ import { Router } from '@angular/router';
   providedIn: 'root'
 })
 export class UserService {
-  
+
   public submitMessage: EventEmitter<any> = new EventEmitter();
-  registrationUrl = environment.api+'/courseManagementSysController/register';
-  loginUrl = environment.api+'/courseManagementSysController/login';
+  registrationUrl = environment.api + '/courseManagementSysController/register';
+  loginUrl = environment.api + '/courseManagementSysController/login';
+  fetchDeptsUrl = environment.api + '/courseManagementSysController/fetchDeptNames';
+  resetPasswordUrl=environment.api+'/courseManagementSysController/resetPassword';
   constructor(private http: Http,
-              private router: Router) { 
+    private router: Router) {
   }
 
-  register(user: User) : any {
-    const httpHeaderOptions  = 
-  {
-    headers: new Headers({
-    'Content-Type' : 'application/json',
-    'Accept'       : 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-    'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X- Request-With'
-    })
-  };
+  register(user: User): any {
+    const httpHeaderOptions =
+    {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X- Request-With'
+      })
+    };
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
     return this.http.post(this.registrationUrl, user, httpHeaderOptions);
   }
-  login(user: User) : any {
-    const httpHeaderOptions  = 
-  {
-    headers: new Headers({
-    'Content-Type' : 'application/json',
-    'Accept'       : 'application/json',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
-    'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X- Request-With'
-    })
-  };
+  login(user: User): any {
+    const httpHeaderOptions =
+    {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X- Request-With'
+      })
+    };
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
     return this.http.post(this.loginUrl, user, httpHeaderOptions);
+  }
+  resetPassword(user: User): any {
+    const httpHeaderOptions =
+    {
+      headers: new Headers({
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'POST, GET, OPTIONS, PUT, DELETE',
+        'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X- Request-With'
+      })
+    };
+    //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
+    return this.http.post(this.resetPasswordUrl, user, httpHeaderOptions);
+  }
+  fetchAllDepartments(): any {
+    return this.http.get(this.fetchDeptsUrl);
   }
   public sendSubmitMessage(msg: String) {
     console.log(msg);
