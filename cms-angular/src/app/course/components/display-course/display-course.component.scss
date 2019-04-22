@@ -1,0 +1,15 @@
+.card-wrapper {
+    max-width: 400px;
+    min-width: 250px;
+}
+mat-card {
+    max-width: 1000px;
+    margin: 3em auto;
+    text-align: left;
+  }
+  .signin-content {
+    padding: 60px 1rem;
+  }
+  .myClickableThingy {
+    cursor: pointer;
+}

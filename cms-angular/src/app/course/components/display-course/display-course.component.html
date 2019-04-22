@@ -1,3 +1,23 @@
-<p>
-  display-course works!
-</p>
+<div class="signin-content">
+    <mat-card >
+    <div class="row">
+    <article class="sample-row card-wrapper col-sm-4" *ngFor="let course of courseArray; let i = index">
+    <igx-card>
+      <igx-card-media height="196px">
+          <img src="..\assets\images\images.jpg">
+      </igx-card-media>
+    
+      <igx-card-header>
+          <h3 igxCardHeaderTitle>UNT</h3>
+          <h5 igxCardHeaderSubtitle>{{course.semester}}</h5>
+      </igx-card-header>
+    <igx-card-content>
+          <!-- <p>New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean. At its core is Manhattan, a densely populated borough that’s among the world’s major commercial, financial and cultural centers.</p> -->
+        <a  [routerLink] = "['/home']" [queryParams] = "{title : course.title, instructorId: course.instructorId}">{{course.title}}</a>
+        </igx-card-content>
+    </igx-card>
+    
+    </article>
+</div>
+</mat-card>
+</div>    

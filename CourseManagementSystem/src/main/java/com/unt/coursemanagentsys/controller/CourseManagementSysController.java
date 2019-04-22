@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.unt.coursemanagentsys.service.CourseManagementSysServiceImpl;
+import com.unt.coursemanagentsys.util.Course;
 import com.unt.coursemanagentsys.util.Department;
 import com.unt.coursemanagentsys.util.StudentVO;
 import com.unt.coursemanagentsys.util.User;
@@ -31,26 +32,26 @@ import com.unt.coursemanagentsys.util.User;
 public class CourseManagementSysController {
 
 	@Autowired
-	CourseManagementSysServiceImpl service;
+	CourseManagementSysServiceImpl courseManagementSysServiceImpl;
 
 	@PostMapping(path = "/login", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public User userValidate(@RequestBody User user) {
-		return service.userValidate(user.getUsername(), user.getPassword());
+		return courseManagementSysServiceImpl.userValidate(user.getUsername(), user.getPassword());
 	}
 
 	@PostMapping(path = "/register", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public int register(@RequestBody User user) {
-		return service.register(user);
+		return courseManagementSysServiceImpl.register(user);
 	}
 	
 	@GetMapping(path="/fetchDeptNames", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public List<Department> fetchAllDepartments(){
-		return service.fetchAllDepartments();
+		return courseManagementSysServiceImpl.fetchAllDepartments();
 	}
 	
 	@PostMapping(path="/resetPassword", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public int resetPassword(@RequestBody User user){
-		return service.resetPassword(user);
+		return courseManagementSysServiceImpl.resetPassword(user);
 	}
 	
 	@PostMapping(path = "/addAssignemnt")
@@ -70,6 +71,37 @@ public class CourseManagementSysController {
 		});
 		return "Success";
 	}
+	@PostMapping(path = "/getcurrentsemcourses")
+	public List<Course> getCurrentSemCourses(@RequestBody User user) {
+		return courseManagementSysServiceImpl.getCurrentSemCourses(user);
+		
+	}
+	
+	@PostMapping(path = "/getallfiles")
+	public List<String> getAllFiles(@RequestBody Course course) {
+		return courseManagementSysServiceImpl.getAllFiles(course);
+	}
+	
+	@PostMapping(path = "/getfile")
+    public void getFile(HttpServletResponse response,@RequestBody Course course) throws Exception {
+
+		 File file = new File("F:\\Akhila project\\Files"+"\\"+course.getType()+"\\"+course.getInstructorId()+"\\"+course.getTitle()+"\\"+course.getCourseFileName());
+		 System.out.println("file::"+file.getPath());
+		  byte[] bytesArray = new byte[(int) file.length()]; 
+		  
+        streamReport(response, bytesArray, course.getCourseFileName());
+    }
+
+    protected void streamReport(HttpServletResponse response, byte[] data, String name)
+            throws IOException {
+
+        response.setContentType("application/pdf");
+        response.setHeader("Content-disposition", "attachment; filename=" + name);
+        response.setContentLength(data.length);
+
+        response.getOutputStream().write(data);
+        response.getOutputStream().flush();
+    }
 	
 	
 }

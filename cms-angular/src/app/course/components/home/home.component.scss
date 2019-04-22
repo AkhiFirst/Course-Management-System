@@ -1,0 +1,19 @@
+.example-container {
+    width: 1000px;
+    height: 2000px;
+    margin: 1px;
+    border: 1px solid #555;
+  }
+  mat-card {
+    max-width: 1000px;
+    margin: 2em auto;
+    text-align: left;
+  }
+  .signin-content {
+    padding: 60px 1rem;
+  }
+  .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active, .open>.dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #00b3db;
+    border-color: #285e8e; /*set the color you want here*/
+}

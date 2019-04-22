@@ -8,6 +8,7 @@ import { UserModule } from './user/user.module';
 import { DashboardComponent } from './dashboard/components/dashboard/dashboard.component';
 import { AssignmentModule } from './assignment/assignment.module';
 import { CourseModule } from './course/course.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { CourseModule } from './course/course.module';
     AppRoutingModule,
     AssignmentModule,
     CourseModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

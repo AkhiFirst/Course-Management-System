@@ -2,6 +2,7 @@ package com.unt.coursemanagentsys.dao;
 
 import org.springframework.stereotype.Repository;
 
+import com.unt.coursemanagentsys.util.Course;
 import com.unt.coursemanagentsys.util.Department;
 import com.unt.coursemanagentsys.util.User;
 
@@ -85,7 +86,13 @@ public class CourseManagementSysDaoImpl implements CourseManagementSysDao {
 		else
 		return false;
 	}
-	
+	@Override
+	public List<Course> getCurrentSemCourses(User user) {
+		String query = "SELECT TK.ISTA,CR.TITLE,TK.SEMESTER, TC.ID AS INSTRUCTORID FROM COURSES CR, TAKES TK, TEACHES TC WHERE CR.COURSE_ID = TK.COURSE_ID AND TK.ID = ? AND TK.YEAR = date_part('year', CURRENT_DATE) AND CR.SEMESTER = TK.SEMESTER\r\n" + 
+				"AND TK.COURSE_ID = TC.COURSE_ID AND TK.SEMESTER= TC.SEMESTER AND TC.YEAR = TK.YEAR;";
+		return jdbcTemplate.query(query, new Object[] { user.getId() }, new BeanPropertyRowMapper<>(Course.class));
+	}
+
 	
 	
 	
