@@ -78,7 +78,7 @@ public class CourseManagementSysDaoImpl implements CourseManagementSysDao {
 	public Boolean resetPassword(User user) {
 		// TODO Auto-generated method stub
 		String sql="UPDATE userdetails SET username=?, password=? where id=?";
-		Object[] args= {user.getUsername(), user.getPassword(), user.getId()};
+		Object[] args= {user.getUsername().toUpperCase(), user.getPassword(), user.getId()};
 		int[] argTypes= {Types.VARCHAR, Types.VARCHAR, Types.VARCHAR};
 		if(jdbcTemplate.update(sql, args, argTypes)==1)
 			return true;
