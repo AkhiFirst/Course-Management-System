@@ -10,6 +10,7 @@ private String username;
 private String password;
 private Boolean userExists=false;
 private Boolean validUser=false;
+private String role;
 
 public String getFirstName() {
 	return firstName;
@@ -66,6 +67,18 @@ public Boolean getUserExists() {
 }
 public void setUserExists(Boolean userExists) {
 	this.userExists = userExists;
+}
+/**
+ * @return the role
+ */
+public String getRole() {
+	return role;
+}
+/**
+ * @param role the role to set
+ */
+public void setRole(String role) {
+	this.role = role;
 }
 
 }

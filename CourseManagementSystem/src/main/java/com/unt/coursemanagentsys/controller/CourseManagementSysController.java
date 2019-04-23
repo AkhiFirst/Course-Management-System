@@ -21,6 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.unt.coursemanagentsys.service.CourseManagementSysServiceImpl;
+import com.unt.coursemanagentsys.util.Assignment;
 import com.unt.coursemanagentsys.util.Course;
 import com.unt.coursemanagentsys.util.Department;
 import com.unt.coursemanagentsys.util.StudentVO;
@@ -71,26 +72,35 @@ public class CourseManagementSysController {
 		});
 		return "Success";
 	}
-	@PostMapping(path = "/getcurrentsemcourses")
-	public List<Course> getCurrentSemCourses(@RequestBody User user) {
-		return courseManagementSysServiceImpl.getCurrentSemCourses(user);
+	@PostMapping(path = "/getCourses")
+	public List<Course> getCourses(@RequestBody User user) {
+		return courseManagementSysServiceImpl.getCourses(user);
 		
 	}
 	
-	@PostMapping(path = "/getallfiles")
-	public List<String> getAllFiles(@RequestBody Course course) {
-		return courseManagementSysServiceImpl.getAllFiles(course);
+	@PostMapping(path = "/getcourserelatedfiles")
+	public List<String> getCourseRelatedFiles(@RequestBody Course course) {
+		return courseManagementSysServiceImpl.getCourseRelatedFiles(course);
 	}
 	
-	@PostMapping(path = "/getfile")
-    public void getFile(HttpServletResponse response,@RequestBody Course course) throws Exception {
+	@PostMapping(path = "/getcoursefile")
+    public void getCourseFile(HttpServletResponse response,@RequestBody Course course) throws Exception {
 
-		 File file = new File("F:\\Akhila project\\Files"+"\\"+course.getType()+"\\"+course.getInstructorId()+"\\"+course.getTitle()+"\\"+course.getCourseFileName());
+		 File file = new File("F:\\Akhila project\\Files"+"\\"+course.getType()+"\\"+course.getTitle()+"\\"+course.getCourseFileName());
 		 System.out.println("file::"+file.getPath());
 		  byte[] bytesArray = new byte[(int) file.length()]; 
 		  
         streamReport(response, bytesArray, course.getCourseFileName());
     }
+	@PostMapping(path = "/getassignmentfile")
+	public void getAssignmentFile(HttpServletResponse response,@RequestBody Assignment assignment) throws Exception {
+
+		 File file = new File("F:\\Akhila project\\Files\\Assignments\\"+assignment.getStudentId()+"\\"+assignment.getCourseName()+"\\"+assignment.getFileName());
+		 System.out.println("file::"+file.getPath());
+		  byte[] bytesArray = new byte[(int) file.length()]; 
+		  
+       streamReport(response, bytesArray, assignment.getFileName());
+   }
 
     protected void streamReport(HttpServletResponse response, byte[] data, String name)
             throws IOException {
@@ -102,6 +112,14 @@ public class CourseManagementSysController {
         response.getOutputStream().write(data);
         response.getOutputStream().flush();
     }
-	
-	
+    
+    @PostMapping(path = "/getassignementfilesforinstructor")
+    public List<Assignment> getAssignementFilesForInstructor(Course course) {
+    	return courseManagementSysServiceImpl.getAssignementFilesForInstructor(course);
+    }
+    
+    @PostMapping(path = "/getAssignementfilesforstudent")
+    public List<Assignment> getAssignementFilesForStudent(Course course) {
+    	return courseManagementSysServiceImpl.getAssignementFilesForStudent(course);
+    }
 }

@@ -2,6 +2,7 @@ package com.unt.coursemanagentsys.dao;
 
 import org.springframework.stereotype.Repository;
 
+import com.unt.coursemanagentsys.util.Assignment;
 import com.unt.coursemanagentsys.util.Course;
 import com.unt.coursemanagentsys.util.Department;
 import com.unt.coursemanagentsys.util.User;
@@ -87,10 +88,23 @@ public class CourseManagementSysDaoImpl implements CourseManagementSysDao {
 		return false;
 	}
 	@Override
-	public List<Course> getCurrentSemCourses(User user) {
-		String query = "SELECT TK.ISTA,CR.TITLE,TK.SEMESTER, TC.ID AS INSTRUCTORID FROM COURSES CR, TAKES TK, TEACHES TC WHERE CR.COURSE_ID = TK.COURSE_ID AND TK.ID = ? AND TK.YEAR = date_part('year', CURRENT_DATE) AND CR.SEMESTER = TK.SEMESTER\r\n" + 
-				"AND TK.COURSE_ID = TC.COURSE_ID AND TK.SEMESTER= TC.SEMESTER AND TC.YEAR = TK.YEAR;";
+	public List<Course> getCourses(User user) {
+		String query = "";
+		if(user.getRole().equalsIgnoreCase("student")) {
+			query = "SELECT TK.ISTA,CR.TITLE,TK.SEMESTER, TC.ID AS INSTRUCTORID FROM COURSES CR, TAKES TK, TEACHES TC WHERE CR.COURSE_ID = TK.COURSE_ID AND TK.ID = ? AND TK.YEAR = date_part('year', CURRENT_DATE) AND CR.SEMESTER = TK.SEMESTER\r\n" + 
+					"AND TK.COURSE_ID = TC.COURSE_ID AND TK.SEMESTER= TC.SEMESTER AND TC.YEAR = TK.YEAR;";
+		} else if(user.getRole().equalsIgnoreCase("instructor")) {
+			query = "SELECT DISTINCT CR.TITLE, TC.SEMESTER,TC.ID AS INSTRUCTORID FROM TEACHES TC,COURSES CR WHERE TC.COURSE_ID = CR.COURSE_ID "
+					+ "AND TC.ID = ? AND CR.YEAR = TC.YEAR AND CR.SEMESTER = TC.SEMESTER AND TC.YEAR = date_part('year', CURRENT_DATE)";
+		}
 		return jdbcTemplate.query(query, new Object[] { user.getId() }, new BeanPropertyRowMapper<>(Course.class));
+	}
+
+	@Override
+	public List<Assignment> getAssignementFilesForInstructor(Course course) {
+		String query = "SELECT  CR.TITLE AS,TK.ID FROM TEACHES TC, TAKES TK, COURSES CR WHERE TC.COURSE_ID = TK.COURSE_ID AND TC.ID = ? AND TK.YEAR = TC.YEAR AND TK.SEMESTER = TC.SEMESTER AND TC.YEAR = date_part('year', CURRENT_DATE)\r\n" + 
+				"AND CR.COURSE_ID = TC.COURSE_ID AND CR.SEMESTER = TC.SEMESTER AND CR.YEAR=TC.YEAR";
+		return jdbcTemplate.query(query, new Object[] { course.getInstructorId() }, new BeanPropertyRowMapper<>(Assignment.class));
 	}
 
 	

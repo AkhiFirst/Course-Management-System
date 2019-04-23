@@ -13,12 +13,14 @@ export class HomeComponent implements OnInit {
   navPosistion: String = 'end';
   title: String;
   instructorId: Number;
+  role : String;
   constructor(private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.title= params.title;
       this.instructorId = params.instructorId;
+      this.role = params.role;
     });
   }
 

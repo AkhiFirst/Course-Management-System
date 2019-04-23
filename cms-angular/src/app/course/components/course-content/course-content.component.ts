@@ -20,11 +20,11 @@ export class CourseContentComponent implements OnInit {
       this.title= params.title;
       this.instructorId = params.instructorId;
     });
-    this.getAllFiles(this.title,this.instructorId);
-    this.srcPath = this.srcPath+'Courses\\'+this.instructorId+this.title
+    this.getCourseRelatedFiles(this.title,this.instructorId);
+    this.srcPath = this.srcPath+'Courses\\'+this.instructorId+this.title;
   }
-  getAllFiles(courseName: String,instructorId:Number) : any {
-    this.courseService.getAllFiles(courseName,instructorId).subscribe(resp => {
+  getCourseRelatedFiles(courseName: String,instructorId:Number) : any {
+    this.courseService.getCourseRelatedFiles(courseName,instructorId).subscribe(resp => {
       console.log("Files resp::"+JSON.stringify(resp.json()));  
       this.fileNames = resp.json();
       });;

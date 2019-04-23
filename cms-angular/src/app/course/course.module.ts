@@ -10,10 +10,11 @@ import { HomeComponent } from './components/home/home.component';
 import { CourseContentComponent } from './components/course-content/course-content.component';
 import { CourseService } from './services/course.service';
 import {MatGridListModule} from '@angular/material/grid-list';
-import { PdfViewerComponent } from 'ng2-pdf-viewer'; 
+import { PdfViewerComponent } from 'ng2-pdf-viewer';
+import { UploadCourseFileComponent } from './components/upload-course-file/upload-course-file.component'; 
 
 @NgModule({
-  declarations: [AddCourseComponent, DisplayCourseComponent, HomeComponent, CourseContentComponent,PdfViewerComponent],
+  declarations: [AddCourseComponent, DisplayCourseComponent, HomeComponent, CourseContentComponent,PdfViewerComponent, UploadCourseFileComponent],
   imports: [
     CommonModule,
     CourseRoutingModule,

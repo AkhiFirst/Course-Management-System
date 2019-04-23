@@ -9,14 +9,14 @@ import { User } from 'src/app/user/model/user';
 })
 export class CourseService {
 
-  getSemCourseUrl = environment.api+'/courseManagementSysController/getcurrentsemcourses';
-  getAllFilesUrl = environment.api+'/courseManagementSysController/getallfiles';
-  downloadFileUrl = environment.api+'/courseManagementSysController/getfile';
+  getCoursesUrl = environment.api+'/courseManagementSysController/getcourses';
+  getCourseRelatedFilesUrl = environment.api+'/courseManagementSysController/getcourserelatedfiles';
+  downloadFileUrl = environment.api+'/courseManagementSysController/getcoursefile';
   course:Course = new Course();
 
   constructor(private http: Http) { }
 
-  getCurrentSemCourses(user: User) : any {
+  getCourses(user: User) : any {
     const httpHeaderOptions  = 
   {
     headers: new Headers({
@@ -28,10 +28,10 @@ export class CourseService {
     })
   };
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
-    return this.http.post(this.getSemCourseUrl, user, httpHeaderOptions);
+    return this.http.post(this.getCoursesUrl, user, httpHeaderOptions);
   }
 
-  getAllFiles(courseName: String,instructorId:Number) : any {
+  getCourseRelatedFiles(courseName: String,instructorId:Number) : any {
     const httpHeaderOptions  = 
   {
     headers: new Headers({
@@ -45,7 +45,7 @@ export class CourseService {
   this.course.title = courseName;
   this.course.instructorId = instructorId;
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
-    return this.http.post(this.getAllFilesUrl, this.course, httpHeaderOptions);
+    return this.http.post(this.getCourseRelatedFilesUrl, this.course, httpHeaderOptions);
   }
   downloadPdf(courseName: String,instructorId:Number,fileName:String) : any {
     const httpHeaderOptions  = 

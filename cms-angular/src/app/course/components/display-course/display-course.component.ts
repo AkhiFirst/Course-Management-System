@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { CourseService } from '../../services/course.service';
 import { Course } from '../../model/course';
-import { User } from 'bin/src/app/user/model/user';
 import { Router } from '@angular/router';
+import { User } from 'src/app/user/model/user';
 
 @Component({
   selector: 'app-display-course',
@@ -17,10 +17,11 @@ export class DisplayCourseComponent implements OnInit {
 
   ngOnInit() {
     this.user.id = '1131700';
-    this.getCurrentSemCourses();
+    this.user.role = 'student';
+    this.getCourses();
   }
-  getCurrentSemCourses() {
-    this.courseService.getCurrentSemCourses(this.user).subscribe(resp => {
+  getCourses() {
+    this.courseService.getCourses(this.user).subscribe(resp => {
       console.log("resp::"+JSON.stringify(resp.json()));
         let data = resp.json()   
       this.courseArray = data;
