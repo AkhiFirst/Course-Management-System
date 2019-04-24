@@ -19,7 +19,7 @@ export class UploadCourseFileComponent implements OnInit {
       this.course.instructorId = params.instructorId;
     });
   }
-  fileChange(event: any, input: any) {
+  uploadCourse(event: any, input: any) {
     let fileList: FileList = event.target.files;
     let formData:FormData = new FormData();
     for(let i=0; i<fileList.length; i++) {
@@ -29,7 +29,7 @@ export class UploadCourseFileComponent implements OnInit {
     let headers = new Headers();
         headers.append('Accept', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        this.http.post(environment.api+'/courseManagementSysController/addFile', this.course, options).subscribe(resp => {let msg = resp.json();console.log("msg::"+msg);});
+        this.http.post(environment.api+'/courseManagementSysController/uploadcourse/'+this.course.title, formData, options).subscribe(resp => {let msg = resp.json();console.log("msg::"+msg);});
 }
 
 }

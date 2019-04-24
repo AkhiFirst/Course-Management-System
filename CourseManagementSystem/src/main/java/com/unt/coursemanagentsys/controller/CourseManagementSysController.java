@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,24 +56,20 @@ public class CourseManagementSysController {
 		return courseManagementSysServiceImpl.resetPassword(user);
 	}
 	
-	@PostMapping(path = "/addAssignemnt")
-	public String addAssignemnt(@RequestParam("uploadFile") List<MultipartFile> multipartFiles) {
-		System.out.println("in addAssignemnt"+multipartFiles.size());
-		multipartFiles.forEach(multiparFile -> { File file = new File("F:\\Akhila project\\Files\\" + multiparFile.getOriginalFilename());
-		System.out.println("multiparFile.getOriginalFilename()::"+multiparFile.getOriginalFilename());
-		try {
-			multiparFile.transferTo(file);
-		} catch (IllegalStateException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		});
-		return "Success";
+	@PostMapping(path = "/addassignemnt/{title}/{instructorId}")
+	public String uploadAssignment(@RequestParam("uploadFile") List<MultipartFile> multipartFiles,@PathVariable("title") String title,@PathVariable("instructorId") String instructorId) {
+		return courseManagementSysServiceImpl.uploadAssignment(multipartFiles, title, instructorId);
 	}
-	@PostMapping(path = "/getCourses")
+	
+	@PostMapping(path = "/uploadcourse/{title}")
+	public String uploadCourse(@RequestParam("uploadFile") List<MultipartFile> multipartFiles,@PathVariable("title") String title) {
+		return courseManagementSysServiceImpl.uploadCourse(multipartFiles, title);
+	}
+	
+	
+	
+	
+	@PostMapping(path = "/getcourses", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
 	public List<Course> getCourses(@RequestBody User user) {
 		return courseManagementSysServiceImpl.getCourses(user);
 		
@@ -82,44 +79,24 @@ public class CourseManagementSysController {
 	public List<String> getCourseRelatedFiles(@RequestBody Course course) {
 		return courseManagementSysServiceImpl.getCourseRelatedFiles(course);
 	}
-	
-	@PostMapping(path = "/getcoursefile")
-    public void getCourseFile(HttpServletResponse response,@RequestBody Course course) throws Exception {
-
-		 File file = new File("F:\\Akhila project\\Files"+"\\"+course.getType()+"\\"+course.getTitle()+"\\"+course.getCourseFileName());
-		 System.out.println("file::"+file.getPath());
-		  byte[] bytesArray = new byte[(int) file.length()]; 
-		  
-        streamReport(response, bytesArray, course.getCourseFileName());
-    }
-	@PostMapping(path = "/getassignmentfile")
-	public void getAssignmentFile(HttpServletResponse response,@RequestBody Assignment assignment) throws Exception {
-
-		 File file = new File("F:\\Akhila project\\Files\\Assignments\\"+assignment.getStudentId()+"\\"+assignment.getCourseName()+"\\"+assignment.getFileName());
-		 System.out.println("file::"+file.getPath());
-		  byte[] bytesArray = new byte[(int) file.length()]; 
-		  
-       streamReport(response, bytesArray, assignment.getFileName());
-   }
-
-    protected void streamReport(HttpServletResponse response, byte[] data, String name)
-            throws IOException {
-
-        response.setContentType("application/pdf");
-        response.setHeader("Content-disposition", "attachment; filename=" + name);
-        response.setContentLength(data.length);
-
-        response.getOutputStream().write(data);
-        response.getOutputStream().flush();
-    }
     
     @PostMapping(path = "/getassignementfilesforinstructor")
-    public List<Assignment> getAssignementFilesForInstructor(Course course) {
+    public List<Assignment> getAssignementFilesForInstructor(@RequestBody Course course) {
     	return courseManagementSysServiceImpl.getAssignementFilesForInstructor(course);
     }
     
     @PostMapping(path = "/getAssignementfilesforstudent")
-    public List<Assignment> getAssignementFilesForStudent(Course course) {
+    public List<Assignment> getAssignementFilesForStudent(@RequestBody Course course) {
     	return courseManagementSysServiceImpl.getAssignementFilesForStudent(course);
+    }
+    
+    @PostMapping(path = "/downloadcoursefile")
+    public byte[] downloadCourseFile(@RequestBody Course course) {
+    	return courseManagementSysServiceImpl.downloadCourseFile(course);
+    }
+    
+    @PostMapping(path = "/downloadassignmetfile")
+    public byte[] downloadAssignmetFile(@RequestBody Assignment assignemt) {
+    	return courseManagementSysServiceImpl.downloadAssignmetFile(assignemt);
     }
 }

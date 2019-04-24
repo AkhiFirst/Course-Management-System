@@ -8,7 +8,7 @@ import { Assignment } from '../model/assignment';
   providedIn: 'root'
 })
 export class AssignmentService {
-  downloadFileUrl = environment.api+'/courseManagementSysController/getassignmentfile';
+  downloadAssignmetFileUrl = environment.api+'/courseManagementSysController/downloadassignmetfile';
   getAssignementFilesForInsUrl = environment.api+'/courseManagementSysController/getassignementfilesforinstructor';
   getAssignementFilesForStdUrl = environment.api+'/courseManagementSysController/getAssignementfilesforstudent';
   course:Course = new Course();
@@ -27,6 +27,7 @@ export class AssignmentService {
   };
   this.course.title = courseName;
   this.course.instructorId = instructorId;
+  this.course.type = "Assignments";
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
     return this.http.post(this.getAssignementFilesForInsUrl, this.course, httpHeaderOptions);
   }
@@ -43,10 +44,11 @@ export class AssignmentService {
   };
   this.course.title = courseName;
   this.course.instructorId = instructorId;
+  this.course.type = "Assignments";
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
     return this.http.post(this.getAssignementFilesForStdUrl, this.course, httpHeaderOptions);
   }
-  downloadPdf(assignment: Assignment) : any {
+  downloadAssignmetFile(assignment: Assignment) : any {
     const httpHeaderOptions  = 
   {
     headers: new Headers({
@@ -58,6 +60,6 @@ export class AssignmentService {
     })
   };
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
-    return this.http.post(this.downloadFileUrl, assignment, httpHeaderOptions);
+    return this.http.post(this.downloadAssignmetFileUrl, assignment, httpHeaderOptions);
   }
 }

@@ -29,13 +29,13 @@ export class CourseContentComponent implements OnInit {
       this.fileNames = resp.json();
       });;
   }
-  downloadPdf(fileName: string) {
-    this.courseService.downloadPdf(this.title,this.instructorId,fileName).subscribe(data => {
+  downloadCourseFile(fileName: string) {
+    this.courseService.downloadCourseFile(this.title,fileName).subscribe(data => {
       console.log("Files resp::"+JSON.stringify(data));  
       const blob = new Blob([data], { type: 'application/pdf' });
       if (navigator.msSaveBlob) 
       { 
-          // IE 10+
+          
           navigator.msSaveBlob(blob, fileName);
       }
       else 

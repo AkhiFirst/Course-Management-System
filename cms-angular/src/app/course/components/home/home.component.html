@@ -3,10 +3,10 @@
     <mat-sidenav-container class="example-container">
       <mat-sidenav #drawer mode="side" opened role="navigation">
         <mat-nav-list>
-          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['uploadcoursefilecomponent'] } }]" [queryParams] = "{title : this.title, instructorId: this.instructorId}" class="btn btn-primary" [hidden] = "role!='instructor'">Add Course Files</a>
-          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['coursecontentcomponent'] } }]" [queryParams] = "{title : this.title, instructorId: this.instructorId}" class="btn btn-primary">Display Course Files</a>
-          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['AddAssignmentComponent'] } }]" [queryParams] = "{title : this.title, instructorId: this.instructorId}" class="btn btn-primary" [hidden] = "role!='student'">Add Assignment Files</a>
-          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['displayassignmentcomponent'] } }]" [queryParams] = "{title : this.title, instructorId: this.instructorId, role:this.role}" class="btn btn-primary">Display Assignment Files</a>
+          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['uploadcoursefilecomponent'] } }]" [queryParams] = "{title : title, instructorId: instructorId}" class="btn btn-primary" [hidden] = "role!='instructor'">Add Course Files</a>
+          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['coursecontentcomponent'] } }]" [queryParams] = "{title : this.title, instructorId: instructorId}" class="btn btn-primary">Display Course Files</a>
+          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['AddAssignmentComponent'] } }]" [queryParams] = "{title : this.title, instructorId: instructorId}" class="btn btn-primary" [hidden] = "role!='student'">Add Assignment Files</a>
+          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['displayassignmentcomponent'] } }]" [queryParams] = "{title : title, instructorId: instructorId, role: role}" class="btn btn-primary">Display Assignment Files</a>
         </mat-nav-list>
       </mat-sidenav>
       <mat-sidenav-content>

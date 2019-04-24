@@ -44,8 +44,8 @@ export class DisplayAssignmentComponent implements OnInit {
       this.assignmentArray = resp.json();
       });;
   }
-  downloadPdf(assignment: Assignment) {
-    this.assignmentService.downloadPdf(assignment).subscribe(data => {
+  downloadAssignmetFile(assignment: Assignment) {
+    this.assignmentService.downloadAssignmetFile(assignment).subscribe(data => {
       console.log("Files resp::"+JSON.stringify(data));  
       const blob = new Blob([data], { type: 'application/pdf' });
       if (navigator.msSaveBlob) 

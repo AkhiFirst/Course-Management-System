@@ -1,11 +1,18 @@
 package com.unt.coursemanagentsys.service;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.unt.coursemanagentsys.dao.CourseManagementSysDaoImpl;
 import com.unt.coursemanagentsys.util.Assignment;
@@ -18,6 +25,7 @@ import com.unt.coursemanagentsys.util.User;
 public class CourseManagementSysServiceImpl implements CourseManagementSysService {
 	@Autowired
 	CourseManagementSysDaoImpl courseManagementSysDaoImpl;
+	public static final String localPath = "F:\\Akhila project\\Files\\";
 
 	public User userValidate(String username, String password) {
 		User user = new User();
@@ -90,7 +98,7 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 	public List<String> getCourseRelatedFiles(Course course) {
 		List<String> fileNames = new ArrayList<>();
 		try {
-			File folder = new File("F:\\Akhila project\\Files\\"+course.getType()+"\\"+course.getTitle());
+			File folder = new File(localPath+course.getType()+"\\"+course.getTitle());
 			System.out.println("folder::"+folder.getPath());
 			File[] files = folder.listFiles();
 			for (File file : files) {
@@ -109,7 +117,7 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 		List<Assignment> assignmnetFilesList = new ArrayList<>();
 		List<Assignment> assignmentsList = courseManagementSysDaoImpl.getAssignementFilesForInstructor(course);
 		for (Assignment assignment : assignmentsList) {
-			File folder = new File("F:\\Akhila project\\Files\\"+course.getType()+"\\"+assignment.getStudentId()+"\\"+assignment.getCourseName());
+			File folder = new File(localPath+course.getType()+"\\"+assignment.getStudentId()+"\\"+assignment.getCourseName());
 			System.out.println("folderpath::"+folder.getPath());
 			File[] files = folder.listFiles();
 			for (File file : files) {
@@ -130,7 +138,7 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 	public List<Assignment> getAssignementFilesForStudent(Course course) {
 		List<Assignment> assignmentList = new ArrayList<>();
 		try {
-			File folder = new File("F:\\Akhila project\\Files\\"+course.getType()+"\\"+course.getInstructorId()+"\\"+course.getTitle());
+			File folder = new File(localPath+course.getType()+"\\"+course.getInstructorId()+"\\"+course.getTitle());
 			System.out.println("folder::"+folder.getPath());
 			File[] files = folder.listFiles();
 			for (File file : files) {
@@ -143,9 +151,107 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 				}
 			}
 		} catch(Exception ex) {
-			System.out.println("Exception in getAllFiles::"+ex.getMessage());
+			System.out.println("Exception in getAssignementFilesForStudent::"+ex.getMessage());
 		}
 		return assignmentList;
+	}
+
+	@Override
+	public byte[] downloadCourseFile(Course course) {
+		File targetFile = new File(localPath+course.getType()+"\\"+course.getTitle()+"\\"+course.getCourseFileName());
+		byte[] pdfData = new byte[(int) targetFile.length()];
+		try {
+			FileInputStream targetInStream = new FileInputStream(targetFile);
+			targetInStream.read(pdfData);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return pdfData;
+	}
+
+	@Override
+	public byte[] downloadAssignmetFile(Assignment assignemt) {
+		byte[] pdfData = null;
+		try {
+			File targetFile = new File(localPath+"Assignments"+assignemt.getStudentId()+"\\"+assignemt.getCourseName()+"\\"+assignemt.getFileName());
+			FileInputStream targetInStream = new FileInputStream(targetFile);
+			pdfData = sanitizeIS(targetInStream);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return pdfData;
+	}
+
+	public  static byte[] sanitizeIS(InputStream inIs) {
+		ByteArrayOutputStream output = null;
+		byte[] decodedInput = null;
+		try {
+			output = new ByteArrayOutputStream();
+			char[] chArr = IOUtils.toCharArray(inIs,"UTF-8");
+			for (char ch : chArr) {
+				if ((ch == 0x9) || (ch == 0xA) || (ch == 0xD)
+						|| ((ch >= 0x20) && (ch <= 0x10FFFF))) {
+					output.write((int) ch);
+				}
+			}
+			decodedInput = output.toByteArray();
+		} catch (IOException ex) {
+			System.out.println("Exception in sanitizeIS::"+ex.getMessage());
+		} 
+		return decodedInput;
+	}
+
+	@Override
+	public String uploadAssignment(List<MultipartFile> multipartFiles, String title, String instructorId) {
+		File directory = new File(localPath+"Assignments\\"+instructorId);
+		if(!directory.exists()) {
+			directory.mkdir();
+			directory = new File(localPath+"Assignments\\"+instructorId+"\\"+title);
+			if(!directory.exists()) {
+				directory.mkdir();
+			}
+		}else {
+			directory = new File(localPath+"Assignments\\"+instructorId+"\\"+title);
+			if(!directory.exists()) {
+				directory.mkdir();
+			}
+		}
+		multipartFiles.forEach(multiparFile -> { File file = new File(localPath+"Assignments\\"+instructorId+"\\"+title+"\\"+ multiparFile.getOriginalFilename());
+		System.out.println("multiparFile.getOriginalFilename()::"+multiparFile.getOriginalFilename());
+		try {
+			multiparFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		});
+		return "Success";
+	}
+
+	@Override
+	public String uploadCourse(List<MultipartFile> multipartFiles, String title) {
+		File directory = new File(localPath+"Courses\\"+title);
+		if(!directory.exists()) {
+			directory.mkdir();
+		}
+		multipartFiles.forEach(multiparFile -> { File file = new File(localPath+"Courses\\"+title+"\\"+ multiparFile.getOriginalFilename());
+		System.out.println("multiparFile.getOriginalFilename()::"+multiparFile.getOriginalFilename());
+		try {
+			multiparFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		});
+		return "Success";
 	}
 
 }

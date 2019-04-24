@@ -97,7 +97,5 @@ public class Course {
 	public void setMultipartFiles(List<MultipartFile> multipartFiles) {
 		this.multipartFiles = multipartFiles;
 	}
-	
-	
 
 }
