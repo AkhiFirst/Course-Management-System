@@ -16,7 +16,6 @@ export class UploadCourseFileComponent implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.course.title= params.title;
-      this.course.instructorId = params.instructorId;
     });
   }
   uploadCourse(event: any, input: any) {

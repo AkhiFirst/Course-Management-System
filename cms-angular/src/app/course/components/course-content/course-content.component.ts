@@ -9,16 +9,15 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class CourseContentComponent implements OnInit {
   title: String;
-  instructorId: Number;
+  user: User;
   fileNames: String[];
-  srcPath: String ='F:\Akhila project\Files\\';
+  srcPath: String ='C:\Users\yarla\Documents\Akhila Project\Files\\';
 
   constructor(private courseService: CourseService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.title= params.title;
-      this.instructorId = params.instructorId;
     });
     this.getCourseRelatedFiles(this.title,this.instructorId);
     this.srcPath = this.srcPath+'Courses\\'+this.instructorId+this.title;

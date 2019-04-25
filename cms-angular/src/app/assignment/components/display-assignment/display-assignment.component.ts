@@ -71,7 +71,7 @@ export class DisplayAssignmentComponent implements OnInit {
               //html5 download not supported
           }
       }   
-      });;
+      });
     }
 
 }
