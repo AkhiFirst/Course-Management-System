@@ -6,9 +6,10 @@ import { AddAssignmentComponent } from './components/add-assignment/add-assignme
 import { MatCardModule } from '@angular/material';
 import { BrowserModule } from '@angular/platform-browser';
 import { DisplayAssignmentComponent } from './components/display-assignment/display-assignment.component';
+import { AddAssignmentInstructorComponent } from './components/add-assignment-instructor/add-assignment-instructor.component';
 
 @NgModule({
-  declarations: [AddAssignmentComponent, DisplayAssignmentComponent],
+  declarations: [AddAssignmentComponent, DisplayAssignmentComponent, AddAssignmentInstructorComponent],
   imports: [
     CommonModule,
     AssignmentRoutingModule,

@@ -39,6 +39,7 @@
                 <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['displayassignmentcomponent'] } }]"
                   [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn">Display
                   Assignment Files</a>
+                  <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['addassignmentinstructorcomponent'] } }]" [queryParams] = "{title : title, role: user.role}" class="btn btn-primary" [hidden] = "user.role!=1">Add-Assignment-by-Instructor</a>
               </mat-nav-list>
             </mat-sidenav>
             <mat-sidenav-content>

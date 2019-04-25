@@ -28,4 +28,5 @@ public String uploadAssignment(List<MultipartFile> multipartFiles, String title,
 public Boolean uploadCourse(List<MultipartFile> multipartFiles, String title);
 public List<Course> getAddCoursesList(User user);
 public int registerCourse(User user, Course course);
+public String uploadAssignmentByInstructor(List<MultipartFile> multipartFiles, String title);
 }

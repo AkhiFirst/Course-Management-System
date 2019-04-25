@@ -172,7 +172,7 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 	public List<Assignment> getAssignementFilesForStudent(Course course) {
 		List<Assignment> assignmentList = new ArrayList<>();
 		try {
-			File folder = new File(localPath+course.getType()+"\\"+course.getInstructorId()+"\\"+course.getTitle());
+			File folder = new File(localPath+"Courses\\"+course.getTitle()+"\\"+"Assignments");
 			System.out.println("folder::"+folder.getPath());
 			File[] files = folder.listFiles();
 			for (File file : files) {
@@ -286,6 +286,36 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 		}
 		});
 		return true;
+	}
+	
+	@Override
+	public String uploadAssignmentByInstructor(List<MultipartFile> multipartFiles, String title) {
+		File directory = new File(localPath+"Courses\\"+title);
+		if(!directory.exists()) {
+			directory.mkdir();
+			directory = new File(localPath+"Courses\\"+title+"\\Assignements");
+			if(!directory.exists()) {
+				directory.mkdir();
+			}
+		}else {
+			directory = new File(localPath+"Courses\\"+title+"\\Assignements");
+			if(!directory.exists()) {
+				directory.mkdir();
+			}
+		}
+		multipartFiles.forEach(multiparFile -> { File file = new File(localPath+"Courses\\"+title+"\\Assignments\\"+ multiparFile.getOriginalFilename());
+		System.out.println("multiparFile.getOriginalFilename()::"+multiparFile.getOriginalFilename());
+		try {
+			multiparFile.transferTo(file);
+		} catch (IllegalStateException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		});
+		return "Success";
 	}
 
 }

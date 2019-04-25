@@ -107,4 +107,9 @@ public class CourseManagementSysController {
     public byte[] downloadAssignmetFile(@RequestBody Assignment assignemt) {
     	return courseManagementSysServiceImpl.downloadAssignmetFile(assignemt);
     }
+    
+    @PostMapping(path = "/uploadassignmentbyinstructor/{title}")
+    public String uploadAssignmentByInstructor(@RequestParam("uploadFile") List<MultipartFile> multipartFiles,@PathVariable("title") String title) {
+    	return courseManagementSysServiceImpl.uploadAssignmentByInstructor(multipartFiles, title );
+    }
 }
