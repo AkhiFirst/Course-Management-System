@@ -17,7 +17,21 @@ export class UserService {
   constructor(private http: Http,
     private router: Router) {
   }
-
+  setSession(key: string, value: User): void {
+    //sessionStorage.setItem(key, JSON.stringify(value));
+    localStorage.setItem(key, JSON.stringify(value));
+}
+getSession(key: string): any {
+  if (typeof window !== 'undefined') {
+      //let retrievedObject = sessionStorage.getItem(key) as string;
+      let retrievedObject = JSON.parse(localStorage.getItem(key)) as any;
+      console.log(JSON.stringify(retrievedObject));
+      return retrievedObject;
+  }
+}
+clearSession(): void {
+  localStorage.clear();
+}
   register(user: User): any {
     const httpHeaderOptions =
     {

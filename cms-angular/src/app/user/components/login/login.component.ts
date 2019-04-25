@@ -13,7 +13,6 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   user: User;
   submitted = false;
-  //loading = false;
   constructor(private formBuilder: FormBuilder, private userService: UserService, private router: Router) { }
 
   ngOnInit() {
@@ -22,11 +21,11 @@ export class LoginComponent implements OnInit {
   get f() { return this.loginForm.controls; }
   onSubmit() {
     this.submitted=true;
-    //this.loading=true;
     if (this.loginForm.invalid)
       return;
+      console.log(JSON.stringify(this.loginForm.value));
     this.userService.login(this.loginForm.value).subscribe(resp => {
-      console.log("resp::" + JSON.stringify(resp.json()));
+     // console.log("resp::" + JSON.stringify(resp.json()));
       this.user = resp.json();
       if (this.user.userExists == false) {
         this.userService.sendSubmitMessage("Error::"+this.user.username + " not found");
@@ -39,9 +38,9 @@ export class LoginComponent implements OnInit {
         }
         else {
           this.userService.sendSubmitMessage("Success::"+this.user.username + "logged in Successfully");
-          this.router.navigate(['register']);
+          this.userService.setSession('user',this.user);
+          this.router.navigate(['displaycourse']);
         }
-       //  this.loading=false;
       }
     });
   }

@@ -8,11 +8,12 @@ import { UserModule } from './user/user.module';
 import { DashboardComponent } from './dashboard/components/dashboard/dashboard.component';
 import { AssignmentModule } from './assignment/assignment.module';
 import { CourseModule } from './course/course.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
     AppComponent,
-    DashboardComponent,
+    DashboardComponent
   ],
   imports: [
     BrowserModule,
@@ -21,8 +22,11 @@ import { CourseModule } from './course/course.module';
     AppRoutingModule,
     AssignmentModule,
     CourseModule,
+    BrowserAnimationsModule,
+    
   ],
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

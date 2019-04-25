@@ -5,8 +5,29 @@ import java.util.List;
 import org.springframework.web.multipart.MultipartFile;
 
 public class Course {
+	private String course_id;
+	private String dept_name;
+	private String year;
 	private String title;
 	private Boolean isTA;
+	public String getCourse_id() {
+		return course_id;
+	}
+	public void setCourse_id(String course_id) {
+		this.course_id = course_id;
+	}
+	public String getDept_name() {
+		return dept_name;
+	}
+	public void setDept_name(String dept_name) {
+		this.dept_name = dept_name;
+	}
+	public String getYear() {
+		return year;
+	}
+	public void setYear(String year) {
+		this.year = year;
+	}
 	private String semester;
 	private String instructorId;
 	private String type;

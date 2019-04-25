@@ -90,23 +90,74 @@ public class CourseManagementSysDaoImpl implements CourseManagementSysDao {
 	@Override
 	public List<Course> getCourses(User user) {
 		String query = "";
-		if(user.getRole().equalsIgnoreCase("student")) {
-			query = "SELECT TK.ISTA,CR.TITLE,TK.SEMESTER, TC.ID AS INSTRUCTORID FROM COURSES CR, TAKES TK, TEACHES TC WHERE CR.COURSE_ID = TK.COURSE_ID AND TK.ID = ? AND TK.YEAR = date_part('year', CURRENT_DATE) AND CR.SEMESTER = TK.SEMESTER\r\n" + 
-					"AND TK.COURSE_ID = TC.COURSE_ID AND TK.SEMESTER= TC.SEMESTER AND TC.YEAR = TK.YEAR;";
-		} else if(user.getRole().equalsIgnoreCase("instructor")) {
-			query = "SELECT DISTINCT CR.TITLE, TC.SEMESTER,TC.ID AS INSTRUCTORID FROM TEACHES TC,COURSES CR WHERE TC.COURSE_ID = CR.COURSE_ID "
-					+ "AND TC.ID = ? AND CR.YEAR = TC.YEAR AND CR.SEMESTER = TC.SEMESTER AND TC.YEAR = date_part('year', CURRENT_DATE)";
+		if(getRoleId(user.getId())==2) {
+			query = "select distinct takes.course_id,courses.title,takes.semester,takes.year from takes,courses where takes.id=? and takes.semester=? and takes.year=? and takes.course_id=courses.course_id";
+		} else if(getRoleId(user.getId())==1) {
+			query = "select distinct teaches.course_id,courses.title,teaches.semester,teaches.year from teaches,courses where teaches.id=? and teaches.semester=? and teaches.year=? and teaches.course_id=courses.course_id";
 		}
-		return jdbcTemplate.query(query, new Object[] { user.getId() }, new BeanPropertyRowMapper<>(Course.class));
+		return jdbcTemplate.query(query, new Object[] { user.getId(),user.getSemester(),user.getYear() }, new BeanPropertyRowMapper<>(Course.class));
 	}
-
 	@Override
 	public List<Assignment> getAssignementFilesForInstructor(Course course) {
 		String query = "SELECT  CR.TITLE AS,TK.ID FROM TEACHES TC, TAKES TK, COURSES CR WHERE TC.COURSE_ID = TK.COURSE_ID AND TC.ID = ? AND TK.YEAR = TC.YEAR AND TK.SEMESTER = TC.SEMESTER AND TC.YEAR = date_part('year', CURRENT_DATE)\r\n" + 
 				"AND CR.COURSE_ID = TC.COURSE_ID AND CR.SEMESTER = TC.SEMESTER AND CR.YEAR=TC.YEAR";
 		return jdbcTemplate.query(query, new Object[] { course.getInstructorId() }, new BeanPropertyRowMapper<>(Assignment.class));
 	}
+	@Override
+	public int getRoleId(String id) {
+		String sql="select role_id from university where id=?";
+		return jdbcTemplate.queryForObject(sql, new Object[] { id }, Integer.class );
+	}
+	
+	@Override
+	public List<Course> getAddCoursesList(User user){
+		String sql="";
+		if(getRoleId(user.getId())==1) 
+			sql="select * from courses where dept_name=? and year = ? and semester=? and isactive=false";
+			else if(getRoleId(user.getId())==2)
+				sql="select * from courses where dept_name=? and year = ? and semester=? and isactive=true";
+	return jdbcTemplate.query(sql, new Object[] { user.getDeptName(),user.getYear(),user.getSemester() }, new BeanPropertyRowMapper<>(Course.class));
+	}
+	
+	
+	public int countUserCourses(User user) {
+		String sql="select count(id) from takes where semester=? and year=?";
+		return jdbcTemplate.queryForObject(sql, new Object[] { user.getSemester(), user.getYear() }, Integer.class );
+	}
 
+	public int studentAlreadyHasACourse(User user,Course course) {
+		String sql="select count(id) from takes where course_id=? and semester=? and year=?";
+		return jdbcTemplate.queryForObject(sql, new Object[] { course.getCourse_id(),user.getSemester(),user.getYear() }, Integer.class );
+	}
+	@Override
+	public Boolean registerInstructorCourse(User user, Course course) {
+		// TODO Auto-generated method stub
+		String sql = "INSERT INTO teaches values(?,?,?,?)";
+		Object[] args = { user.getId(), course.getCourse_id(), user.getSemester(), user.getYear() };
+		int[] argTypes = { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER };
+		if(jdbcTemplate.update(sql, args, argTypes) == 1)
+		{
+			String inner="UPDATE courses SET isactive=true where course_id=? and semester=? and year=?";
+		Object[] innerargs= {course.getCourse_id(), user.getSemester(), user.getYear()};
+		int[] innerargTypes= {Types.VARCHAR, Types.VARCHAR, Types.INTEGER};
+		jdbcTemplate.update(inner, innerargs, innerargTypes);
+			return true;
+		}
+		else
+			return false;
+	}
+
+	@Override
+	public Boolean registerStudentCourse(User user, Course course) {
+		// TODO Auto-generated method stub
+		String sql = "INSERT INTO takes values(?,?,?,?,?,?)";
+		Object[] args = { user.getId(), course.getCourse_id(), user.getSemester(), user.getYear(),"NA",false };
+		int[] argTypes = { Types.VARCHAR, Types.VARCHAR, Types.VARCHAR, Types.INTEGER,Types.VARCHAR,Types.BOOLEAN};
+		if(jdbcTemplate.update(sql, args, argTypes) == 1)
+		return true;
+		else
+			return false;
+	}
 	
 	
 	

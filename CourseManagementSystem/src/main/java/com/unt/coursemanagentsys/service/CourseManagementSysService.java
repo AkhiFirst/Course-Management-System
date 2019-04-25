@@ -25,5 +25,7 @@ public List<Assignment> getAssignementFilesForStudent(Course course);
 public byte[] downloadCourseFile(Course course);
 public byte[] downloadAssignmetFile(Assignment assignemt);
 public String uploadAssignment(List<MultipartFile> multipartFiles, String title, String instructorId);
-public String uploadCourse(List<MultipartFile> multipartFiles, String title);
+public Boolean uploadCourse(List<MultipartFile> multipartFiles, String title);
+public List<Course> getAddCoursesList(User user);
+public int registerCourse(User user, Course course);
 }

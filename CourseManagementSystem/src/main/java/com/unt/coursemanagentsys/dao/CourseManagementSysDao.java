@@ -21,4 +21,11 @@ public String getEmail(String id);
 public List<Course> getCourses(User user);
 //public Course getCourses(String username);
 public List<Assignment> getAssignementFilesForInstructor(Course course);
+
+public List<Course> getAddCoursesList(User user);
+public int getRoleId(String id);
+public Boolean registerInstructorCourse(User user, Course course);
+public Boolean registerStudentCourse(User user, Course course);
+public int countUserCourses(User user);
+
 }

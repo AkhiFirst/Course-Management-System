@@ -71,7 +71,7 @@
                         </div>
                         <div class="form-group wrap-input100 columnl">
                             <select class="dropdown" required formControlName="deptName" name="deptName"
-                                [ngClass]="{ 'is-invalid': (submitted&&f.deptName.errors) || (f.deptName.touched && f.deptName.DeptRequired) }">
+                                [ngClass]="{ 'is-invalid': (submitted&&f.deptName.errors) || (f.deptName.touched && f.deptName.errors) }">
                                 <span class="focus-input100"></span>
                                 <option value='' selected>Department</option>
                                 <option *ngFor="let dept of departments" value={{dept.deptName}}>

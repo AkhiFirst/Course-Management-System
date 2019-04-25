@@ -25,9 +25,9 @@ import com.unt.coursemanagentsys.util.User;
 public class CourseManagementSysServiceImpl implements CourseManagementSysService {
 	@Autowired
 	CourseManagementSysDaoImpl courseManagementSysDaoImpl;
-	public static final String localPath = "F:\\Akhila project\\Files\\";
+	public static final String localPath = "C:\\Users\\yarla\\Documents\\Akhila Project\\Files\\";
 
-	public User userValidate(String username, String password) {
+	public User userValidate(String username,String password) {
 		User user = new User();
 		if (courseManagementSysDaoImpl.userExists(username)== 0)
 		{
@@ -38,6 +38,7 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 			user.setUserExists(true);
 			if (password.equals(user.getPassword()))
 				user.setValidUser(true);
+			user.setRole_id(courseManagementSysDaoImpl.getRoleId(user.getId()));
 			return user;
 		}
 	}
@@ -93,6 +94,39 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 		// TODO Auto-generated method stub
 		return courseManagementSysDaoImpl.getCourses(user);
 	}
+	
+	@Override
+	public List<Course> getAddCoursesList(User user) {
+		return courseManagementSysDaoImpl.getAddCoursesList(user);
+
+	}
+
+	@Override
+	public int registerCourse(User user, Course course) {
+		// TODO Auto-generated method stub
+		if (courseManagementSysDaoImpl.getRoleId(user.getId()) == 1) {
+			if (courseManagementSysDaoImpl.countUserCourses(user) <= 3) {
+				if (courseManagementSysDaoImpl.registerInstructorCourse(user, course) == true)
+					return 1;
+				else
+					return 0;
+			} else
+				return 2;
+		} else if (courseManagementSysDaoImpl.getRoleId(user.getId()) == 2) {
+			if (courseManagementSysDaoImpl.studentAlreadyHasACourse(user, course) == 0) {
+				if (courseManagementSysDaoImpl.countUserCourses(user) <= 3) {
+					if (courseManagementSysDaoImpl.registerStudentCourse(user, course) == true)
+						return 1;
+					else
+						return 0;
+				} else
+					return 2;
+			} else
+				return 3;
+		} else
+			return 0;
+	}
+
 
 	@Override
 	public List<String> getCourseRelatedFiles(Course course) {
@@ -234,7 +268,7 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 	}
 
 	@Override
-	public String uploadCourse(List<MultipartFile> multipartFiles, String title) {
+	public Boolean uploadCourse(List<MultipartFile> multipartFiles, String title) {
 		File directory = new File(localPath+"Courses\\"+title);
 		if(!directory.exists()) {
 			directory.mkdir();
@@ -251,7 +285,7 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 			e.printStackTrace();
 		}
 		});
-		return "Success";
+		return true;
 	}
 
 }

@@ -1,3 +1,44 @@
-<p>
-  add-course works!
-</p>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Course Management System</title>
+</head>
+
+<body>
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+
+        <!-- <div class="signin-content"> -->
+        <!-- <mat-card> -->
+        <form [formGroup]="addCoursesForm" class=login100-form (ngSubmit)="onSubmit()">
+          <span class="login100-form-title">
+            Add Course
+          </span>
+          <div class="form-group wrap-input100">
+            <select class="dropdown" required formControlName="course_id"
+                [ngClass]="{ 'is-invalid': (submitted&&f.course_id.errors) || (f.course_id.touched && f.course_id.errors) }">
+                <span class="focus-input100"></span>
+                <option value='' selected>Add Course</option>
+                <option *ngFor="let course of courses" value={{course.course_id}}>
+                   {{course.course_id}} {{course.title}}
+                </option>
+            </select>
+            <div *ngIf="(submitted&&f.course_id.errors)||(f.course_id.touched&&f.course_id.errors)" class="invalid-feedback">
+                    <div *ngIf="f.course_id.errors?.required">Please select your department</div>
+             <!-- <div *ngIf="f.course.errors?.DeptRequired ">Please select your department</div> -->
+</div>
+          </div>
+<div class="container-login100-form-btn form-group">
+  <button type="submit" [disabled]="loading"
+      class="login100-form-btn btn btn-primary">ADD</button> 
+      </div>
+    </form>
+    <!-- </mat-card> -->
+</div>
+</div>
+</div>
+</body>
+
+</html>

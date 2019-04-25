@@ -1,23 +1,55 @@
-<div class="signin-content">
-    <mat-card >
-    <div class="row">
-    <article class="sample-row card-wrapper col-sm-4" *ngFor="let course of courseArray; let i = index">
-    <igx-card>
-      <igx-card-media height="196px">
-          <img src="..\assets\images\images.jpg">
-      </igx-card-media>
-    
-      <igx-card-header>
-          <h3 igxCardHeaderTitle>UNT</h3>
-          <h5 igxCardHeaderSubtitle>{{course.semester}}</h5>
-      </igx-card-header>
-    <igx-card-content>
-          <!-- <p>New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean. At its core is Manhattan, a densely populated borough that’s among the world’s major commercial, financial and cultural centers.</p> -->
-        <a  [routerLink] = "['/home']" [queryParams] = "{title : course.title, instructorId: course.instructorId, role : user.role}">{{course.title}}</a>
-        </igx-card-content>
-    </igx-card>
-    
-    </article>
-</div>
-</mat-card>
-</div>    
+<!-- <div class="signin-content">
+        <mat-card > -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Course Management System</title>
+</head>
+
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <!-- <div class="signin-content"> -->
+                <div class="login100-form">
+                    <table  >
+                        <th>
+                            <tr>
+                                <td class="login100-form-title">Dashboard</td>
+                                <td class="container-login100-form-btn">
+                                        <button [routerLink]="['/addcourse']" type="button"
+                                            class="login100-form-btn btn btn-primary">ADD COURSE</button></td>
+                                            <td><a style="float:right;margin-left:80px;" [routerLink]="['/login']"><i class="fa fa-fw fa-power-off"></i> Logout</a></td>
+                            </tr>
+                        </th>
+                    </table>
+                    <hr>
+                </div>
+                <div class="row">
+                    <mat-card class="column" *ngFor="let course of courseArray; let i = index">
+                        <article class="sample-row card-wrapper col-sm-4">
+                            <igx-card>
+                                <igx-card-media height="150px">
+                                    <img src="..\assets\images\course.gif">
+                                </igx-card-media>
+
+                                <igx-card-header>
+                                    <h4 igxCardHeaderTitle style="font-size:14px;font-family: Montserrat-Bold;"><a [routerLink]="['/home']" [queryParams] = "{title: course.title}">{{course.title}}</a></h4>
+                                    <h5 igxCardHeaderSubtitle>{{course.course_id}}</h5>
+                                </igx-card-header>
+                                <igx-card-content>
+                                    <!-- <p>New York City comprises 5 boroughs sitting where the Hudson River meets the Atlantic Ocean. At its core is Manhattan, a densely populated borough that’s among the world’s major commercial, financial and cultural centers.</p> -->
+                                    {{course.semester}} {{course.year}}
+                                </igx-card-content>
+                            </igx-card>
+
+                        </article>
+                    </mat-card>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -10,21 +10,20 @@ import { User } from 'src/app/user/model/user';
   styleUrls: ['./display-course.component.scss']
 })
 export class DisplayCourseComponent implements OnInit {
-  user: User  = new User();
+  user: User;
   courseArray: Course[];
   course: Course;
   constructor(private courseService :  CourseService, private router: Router) { }
 
   ngOnInit() {
-    this.user.id = '1131700';
-    this.user.role = 'student';
+    this.user= JSON.parse(localStorage.getItem('user'));
     this.getCourses();
   }
   getCourses() {
     this.courseService.getCourses(this.user).subscribe(resp => {
       console.log("resp::"+JSON.stringify(resp.json()));
-        let data = resp.json()   
-      this.courseArray = data;
+       
+      this.courseArray =<Course[]>resp.json();
       });
   }
   // navigateToHome(course: Course) {

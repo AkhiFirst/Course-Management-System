@@ -8,6 +8,7 @@ export class User {
     id: String;
     userExists: Boolean;
     validUser: Boolean;
+    role: String;
     constructor() {
         this.firstName = '';
         this.lastName = '';
@@ -18,5 +19,6 @@ export class User {
         this.id = '';
         this.userExists = false;
         this.validUser = false;
+        this.role = '';
     }
 }

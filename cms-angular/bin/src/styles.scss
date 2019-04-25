@@ -1,3 +1,4 @@
+@import "../node_modules/@angular/material/prebuilt-themes/deeppurple-amber.css";
 /* You can add global styles to this file, and also import other style files */
 @font-face {
     font-family: Poppins-Bold;
@@ -15,3 +16,11 @@
     font-family: Montserrat-Bold;
     src: url(assets/fonts/Montserrat-Bold.ttf) format("opentype");
   }
+@import "~igniteui-angular/lib/core/styles/themes/index";
+// Uncomment the following lines if you want to add a custom palette:
+// $primary: #731963 !default;
+// $secondary: #ce5712 !default;
+// $app-palette: igx-palette($primary, $secondary);
+
+@include igx-core();
+@include igx-theme($default-palette);

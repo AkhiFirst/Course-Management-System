@@ -12,6 +12,7 @@ import { CourseService } from './services/course.service';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { PdfViewerComponent } from 'ng2-pdf-viewer';
 import { UploadCourseFileComponent } from './components/upload-course-file/upload-course-file.component'; 
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [AddCourseComponent, DisplayCourseComponent, HomeComponent, CourseContentComponent,PdfViewerComponent, UploadCourseFileComponent],
@@ -22,9 +23,10 @@ import { UploadCourseFileComponent } from './components/upload-course-file/uploa
     MatCardModule,
     MatSidenavModule,
     MatListModule,
-    MatGridListModule
+    MatGridListModule,
+    ReactiveFormsModule
   ],
-  exports: [HomeComponent, DisplayCourseComponent],
+  exports: [HomeComponent, DisplayCourseComponent, AddCourseComponent],
   providers: [
     CourseService
   ]

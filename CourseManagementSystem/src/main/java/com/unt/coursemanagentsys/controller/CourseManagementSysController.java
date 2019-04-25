@@ -25,6 +25,7 @@ import com.unt.coursemanagentsys.service.CourseManagementSysServiceImpl;
 import com.unt.coursemanagentsys.util.Assignment;
 import com.unt.coursemanagentsys.util.Course;
 import com.unt.coursemanagentsys.util.Department;
+import com.unt.coursemanagentsys.util.RegisterCourseRequestBody;
 import com.unt.coursemanagentsys.util.StudentVO;
 import com.unt.coursemanagentsys.util.User;
 
@@ -62,11 +63,18 @@ public class CourseManagementSysController {
 	}
 	
 	@PostMapping(path = "/uploadcourse/{title}")
-	public String uploadCourse(@RequestParam("uploadFile") List<MultipartFile> multipartFiles,@PathVariable("title") String title) {
+	public Boolean uploadCourse(@RequestParam("uploadFile") List<MultipartFile> multipartFiles,@PathVariable("title") String title) {
 		return courseManagementSysServiceImpl.uploadCourse(multipartFiles, title);
 	}
 	
-	
+	@PostMapping(path = "/getAddCourse", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public List<Course> getAddCoursesList(@RequestBody User user){
+		return courseManagementSysServiceImpl.getAddCoursesList(user);
+	}
+	@PostMapping(path = "/registerCourse", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })
+	public int registerCourse(@RequestBody RegisterCourseRequestBody requestBody) {
+		return courseManagementSysServiceImpl.registerCourse(requestBody.getUser(), requestBody.getCourse());
+	}
 	
 	
 	@PostMapping(path = "/getcourses", produces = { MediaType.APPLICATION_JSON_VALUE, MediaType.APPLICATION_XML_VALUE })

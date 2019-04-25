@@ -1,5 +1,7 @@
 package com.unt.coursemanagentsys.util;
 
+import java.util.Calendar;
+
 public class User {
 private String id;
 private String firstName;
@@ -10,7 +12,30 @@ private String username;
 private String password;
 private Boolean userExists=false;
 private Boolean validUser=false;
-private String role;
+private int role_id;
+private String semester;
+private int year;
+
+
+public String getSemester() {
+	if((Calendar.getInstance().get(Calendar.MONTH))>=1 && (Calendar.getInstance().get(Calendar.MONTH))<=4)
+		semester="Spring";
+	else if((Calendar.getInstance().get(Calendar.MONTH))>=5 && (Calendar.getInstance().get(Calendar.MONTH))<=7)
+		semester="Summer";
+	else
+		semester="Fall";
+return semester;
+}
+public void setSemester(String semester) {
+	this.semester = semester;
+}
+public int getYear() {
+	year = Calendar.getInstance().get(Calendar.YEAR);
+	return year;
+}
+public void setYear(int year) {
+	this.year = year;
+}
 
 public String getFirstName() {
 	return firstName;
@@ -68,17 +93,12 @@ public Boolean getUserExists() {
 public void setUserExists(Boolean userExists) {
 	this.userExists = userExists;
 }
-/**
- * @return the role
- */
-public String getRole() {
-	return role;
+public int getRole_id() {
+	return role_id;
 }
-/**
- * @param role the role to set
- */
-public void setRole(String role) {
-	this.role = role;
+public void setRole_id(int role_id) {
+	this.role_id = role_id;
 }
+
 
 }
