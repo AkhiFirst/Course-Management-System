@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Http, RequestOptions, Headers } from '@angular/http';
 import { environment } from 'bin/src/environments/environment';
 import { ActivatedRoute } from '@angular/router';
+import { User } from 'bin/src/app/user/model/user';
 
 @Component({
   selector: 'app-add-assignment',
@@ -10,13 +11,15 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class AddAssignmentComponent implements OnInit {
   title: String;
-  instructorId: Number;
+  user: User;
+  id: String;
   constructor(private http: Http, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.user= JSON.parse(localStorage.getItem('user'));
+    this.id=this.user.id;
     this.route.queryParams.subscribe(params => {
       this.title= params.title;
-      this.instructorId = params.instructorId;
     });
   }
 
@@ -31,7 +34,7 @@ export class AddAssignmentComponent implements OnInit {
     let headers = new Headers();
         headers.append('Accept', 'application/json');
         let options = new RequestOptions({ headers: headers });
-        this.http.post(environment.api+'/courseManagementSysController/addassignemnt/'+this.title+'/'+this.instructorId, formData, options).subscribe(resp => {let msg = resp.json();console.log("msg::"+msg);});
+        this.http.post(environment.api+'/courseManagementSysController/addassignemnt/'+this.title+'/'+this.id, formData, options).subscribe(resp => {let msg = resp.json();console.log("msg::"+msg);});
 }
 
 }

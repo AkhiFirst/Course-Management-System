@@ -5,6 +5,7 @@ export class Course {
     semester: String;
     type:String;
     courseFileName:String;
+    id: String;
     constructor() {
         this.course_id='';
         this.isTA = '';
@@ -12,5 +13,6 @@ export class Course {
         this.semester = '';
         this.type = "Courses";
         this.courseFileName = '';
+        this.id='';
     }
 }

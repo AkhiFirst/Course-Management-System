@@ -29,17 +29,20 @@
             <mat-sidenav #drawer mode="side" opened role="navigation">
               <mat-nav-list>
                   <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['coursecontentcomponent'] } }]"
-                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn">Display Course Files</a>
+                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn">Course documents</a>
                 <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['uploadcoursefilecomponent'] } }]" [queryParams]="{title : title}"
-                  class="btn btn-primary container-login100-form-btn login100-form-btn" [hidden]="user.role_id!=1">Add Course Files</a>
+                  class="btn btn-primary container-login100-form-btn login100-form-btn" [hidden]="user.role_id!=1">Add Course document </a>
        
                 <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['AddAssignmentComponent'] } }]"
-                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn" [hidden]="user.role_id!=2">Add
-                  Assignment Files</a>
+                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn" [hidden]="user.role_id!=2">Submit assignment
+                  </a>
                 <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['displayassignmentcomponent'] } }]"
-                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn">Display
-                  Assignment Files</a>
-                  <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['addassignmentinstructorcomponent'] } }]" [queryParams] = "{title : title, role: user.role}" class="btn btn-primary" [hidden] = "user.role!=1">Add-Assignment-by-Instructor</a>
+                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn" [hidden] = "user.role_id!=1">
+                  Display Submissions</a>
+                  <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['displayassignmentcomponent'] } }]"
+                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn" [hidden] = "user.role_id!=2">Display
+                  Assignments</a>
+                  <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['addassignmentinstructorcomponent'] } }]" [queryParams] = "{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn" [hidden] = "user.role_id!=1">Create Assignment</a>
               </mat-nav-list>
             </mat-sidenav>
             <mat-sidenav-content>

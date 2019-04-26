@@ -1,3 +1,6 @@
-<div *ngFor="let assignment of assignmentArray; let i = index">
+<mat-card>
+  <div *ngFor="let assignment of assignmentArray; let i = index">
   <button (click) = "downloadAssignmetFile(assignment)">{{assignment.fileName}}</button>
   </div>
+
+</mat-card>

@@ -14,7 +14,7 @@ export class AssignmentService {
   course:Course = new Course();
   
   constructor(private http: Http) { }
-  getAssignementFilesForInstructor(courseName: String,instructorId:Number) : any {
+  getAssignementFilesForInstructor(courseName: String,id:String) : any {
     const httpHeaderOptions  = 
   {
     headers: new Headers({
@@ -26,12 +26,12 @@ export class AssignmentService {
     })
   };
   this.course.title = courseName;
-  this.course.instructorId = instructorId;
+  this.course.id = id;
   this.course.type = "Assignments";
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
     return this.http.post(this.getAssignementFilesForInsUrl, this.course, httpHeaderOptions);
   }
-  getAssignementFilesForStudent(courseName: String,instructorId:Number) : any {
+  getAssignementFilesForStudent(courseName: String,id: String) : any {
     const httpHeaderOptions  = 
   {
     headers: new Headers({
@@ -43,7 +43,7 @@ export class AssignmentService {
     })
   };
   this.course.title = courseName;
-  this.course.instructorId = instructorId;
+  this.course.id = id;
   this.course.type = "Assignments";
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
     return this.http.post(this.getAssignementFilesForStdUrl, this.course, httpHeaderOptions);

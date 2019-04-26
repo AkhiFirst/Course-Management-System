@@ -4,6 +4,7 @@ import { CourseService } from 'src/app/course/services/course.service';
 import { Course } from 'src/app/course/model/course';
 import { AssignmentService } from '../../services/assignment.service';
 import { Assignment } from '../../model/assignment';
+import { User } from 'src/app/user/model/user';
 
 @Component({
   selector: 'app-display-assignment',
@@ -12,34 +13,32 @@ import { Assignment } from '../../model/assignment';
 })
 export class DisplayAssignmentComponent implements OnInit {
   title: String;
-  instructorId: Number;
   fileNames: String[];
   assignmentArray: Assignment[]
-  srcPath: String ='F:\Akhila project\Files\\';
-  role: String;
+  srcPath: String ='C:\Users\yarla\Documents\Akhila Project\Files\\';
+  user: User
   constructor(private assignmentService: AssignmentService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.user= JSON.parse(localStorage.getItem('user'));
     this.route.queryParams.subscribe(params => {
       this.title= params.title;
-      this.instructorId = params.instructorId;
-      this.role = params.role;
     });
-    if(this.role == 'student') {
-        this.getAssignementFilesForStudent(this.title,this.instructorId);
-    } else if(this.role == 'instructor') {
-      this.getAssignementFilesForInstructor(this.title,this.instructorId);
+    if(this.user.role_id == 2) {
+        this.getAssignementFilesForStudent(this.title,this.user.id);
+    } else if(this.user.role_id == 1) {
+      this.getAssignementFilesForInstructor(this.title,this.user.id);
     }
-    this.srcPath = this.srcPath+'Courses\\'+this.instructorId+this.title;
+    this.srcPath = this.srcPath+'Courses\\'+this.user.id+this.title;
   }
-  getAssignementFilesForStudent(courseName: String,instructorId:Number) : any {
-    this.assignmentService.getAssignementFilesForStudent(courseName,instructorId).subscribe(resp => {
+  getAssignementFilesForStudent(courseName: String,id: String) : any {
+    this.assignmentService.getAssignementFilesForStudent(courseName,id).subscribe(resp => {
       console.log("Files resp::"+JSON.stringify(resp.json()));  
       this.assignmentArray = resp.json();
       });;
   }
-  getAssignementFilesForInstructor(courseName: String,instructorId:Number) : any {
-    this.assignmentService.getAssignementFilesForInstructor(courseName,instructorId).subscribe(resp => {
+  getAssignementFilesForInstructor(courseName: String,id:String) : any {
+    this.assignmentService.getAssignementFilesForInstructor(courseName,id).subscribe(resp => {
       console.log("Files resp::"+JSON.stringify(resp.json()));  
       this.assignmentArray = resp.json();
       });;
