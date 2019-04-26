@@ -41,12 +41,13 @@ constructor(private formBuilder: FormBuilder, private courseService: CourseServi
     if (this.addCoursesForm.invalid)
       return;
     this.courseService.registerCourse(this.user, this.addCoursesForm.value).subscribe(resp => {
-      let flag = resp.json(); 
+      let flag = resp.json(); console.log(JSON.stringify(resp.json)) ;
       this.registeredCourse=flag;
+      console.log(this.registeredCourse);
       if (this.registeredCourse == 1) {
         this.courseService.sendSubmitMessage("course added");
         alert("You have registered for the course");
-        this.router.navigate(['addcourse']);
+        this.router.navigate(['displaycourse']);
       }
       else if(this.registeredCourse == 2){
         this.courseService.sendSubmitMessage("Courses exceeded");

@@ -15,6 +15,7 @@ export class CourseService {
   fetchAddCoursesUrl = environment.api+'/courseManagementSysController/getAddCourse';
   registerCourseUrl= environment.api+'/courseManagementSysController/registerCourse';
   course:Course = new Course();
+  user: User;
 
   constructor(private http: Http) { }
 
@@ -33,7 +34,7 @@ export class CourseService {
     return this.http.post(this.getCoursesUrl, user, httpHeaderOptions);
   }
 
-  getCourseRelatedFiles(courseName: String,instructorId:Number) : any {
+  getCourseRelatedFiles(title: String,id:String) : any {
     const httpHeaderOptions  = 
   {
     headers: new Headers({
@@ -44,8 +45,7 @@ export class CourseService {
     'Access-Control-Allow-Headers': 'Origin, Content-Type, Accept, Authorization, X- Request-With'
     })
   };
-  this.course.title = courseName;
-  this.course.instructorId = instructorId;
+  this.course.title=title;
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
     return this.http.post(this.getCourseRelatedFilesUrl, this.course, httpHeaderOptions);
   }

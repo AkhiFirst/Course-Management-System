@@ -57,8 +57,8 @@ public class CourseManagementSysController {
 		return courseManagementSysServiceImpl.resetPassword(user);
 	}
 	
-	@PostMapping(path = "/addassignemnt/{title}/{instructorId}")
-	public String uploadAssignment(@RequestParam("uploadFile") List<MultipartFile> multipartFiles,@PathVariable("title") String title,@PathVariable("instructorId") String instructorId) {
+	@PostMapping(path = "/addassignemnt/{title}/{id}")
+	public String uploadAssignment(@RequestParam("uploadFile") List<MultipartFile> multipartFiles,@PathVariable("title") String title,@PathVariable("id") String instructorId) {
 		return courseManagementSysServiceImpl.uploadAssignment(multipartFiles, title, instructorId);
 	}
 	

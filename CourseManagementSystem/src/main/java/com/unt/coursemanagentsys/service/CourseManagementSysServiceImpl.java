@@ -180,7 +180,7 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 					Assignment assignment = new Assignment();
 					assignment.setCourseName(course.getTitle());
 					assignment.setFileName(file.getName());
-					assignment.setStudentId(course.getInstructorId());
+					assignment.setStudentId(course.getId());
 					assignmentList.add(assignment);
 				}
 			}
@@ -293,12 +293,12 @@ public class CourseManagementSysServiceImpl implements CourseManagementSysServic
 		File directory = new File(localPath+"Courses\\"+title);
 		if(!directory.exists()) {
 			directory.mkdir();
-			directory = new File(localPath+"Courses\\"+title+"\\Assignements");
+			directory = new File(localPath+"Courses\\"+title+"\\Assignments");
 			if(!directory.exists()) {
 				directory.mkdir();
 			}
 		}else {
-			directory = new File(localPath+"Courses\\"+title+"\\Assignements");
+			directory = new File(localPath+"Courses\\"+title+"\\Assignments");
 			if(!directory.exists()) {
 				directory.mkdir();
 			}

@@ -1,17 +1,56 @@
-<div class="signin-content">
-  <mat-card>
-    <mat-sidenav-container class="example-container">
-      <mat-sidenav #drawer mode="side" opened role="navigation">
-        <mat-nav-list>
-          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['uploadcoursefilecomponent'] } }]" [queryParams] = "{title : title, instructorId: instructorId}" class="btn btn-primary" [hidden] = "role!='instructor'">Add Course Files</a>
-          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['coursecontentcomponent'] } }]" [queryParams] = "{title : this.title, instructorId: instructorId}" class="btn btn-primary">Display Course Files</a>
-          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['AddAssignmentComponent'] } }]" [queryParams] = "{title : this.title, instructorId: instructorId}" class="btn btn-primary" [hidden] = "role!='student'">Add Assignment Files</a>
-          <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['displayassignmentcomponent'] } }]" [queryParams] = "{title : title, instructorId: instructorId, role: role}" class="btn btn-primary">Display Assignment Files</a>
-        </mat-nav-list>
-      </mat-sidenav>
-      <mat-sidenav-content>
-        <router-outlet name="outlet1"></router-outlet>
-      </mat-sidenav-content>
-    </mat-sidenav-container>
-  </mat-card> 
+<!-- <div class="signin-content"> -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Course Management System</title>
+</head>
+
+<body>
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <!-- <div class="signin-content"> -->
+        <div class="login100-form">
+          <table >
+            <th>
+              <tr>
+                <td class="login100-form-title">Modules</td>
+                <td><a style="float:right;margin-left:800px;" [routerLink]="['/login']"><i
+                      class="fa fa-fw fa-power-off"></i> Logout</a></td>
+              </tr>
+            </th>
+          </table>
+          <hr>
+        </div>
+        <div>
+        <mat-card>
+          <mat-sidenav-container class="example-container">
+            <mat-sidenav #drawer mode="side" opened role="navigation">
+              <mat-nav-list>
+                  <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['coursecontentcomponent'] } }]"
+                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn">Display Course Files</a>
+                <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['uploadcoursefilecomponent'] } }]" [queryParams]="{title : title}"
+                  class="btn btn-primary container-login100-form-btn login100-form-btn" [hidden]="user.role_id!=1">Add Course Files</a>
+       
+                <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['AddAssignmentComponent'] } }]"
+                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn" [hidden]="user.role_id!=2">Add
+                  Assignment Files</a>
+                <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['displayassignmentcomponent'] } }]"
+                  [queryParams]="{title : title}" class="btn btn-primary container-login100-form-btn login100-form-btn">Display
+                  Assignment Files</a>
+                  <a mat-list-item [routerLink]="[{ outlets: { outlet1: ['addassignmentinstructorcomponent'] } }]" [queryParams] = "{title : title, role: user.role}" class="btn btn-primary" [hidden] = "user.role!=1">Add-Assignment-by-Instructor</a>
+              </mat-nav-list>
+            </mat-sidenav>
+            <mat-sidenav-content>
+              <router-outlet name="outlet1"></router-outlet>
+            </mat-sidenav-content>
+          </mat-sidenav-container>
+        </mat-card>
+      </div>
+    </div>
+  </div>
 </div>
+</body>
+
+</html>

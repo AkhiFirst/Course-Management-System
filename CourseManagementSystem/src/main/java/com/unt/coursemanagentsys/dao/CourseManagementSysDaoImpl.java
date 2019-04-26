@@ -99,9 +99,8 @@ public class CourseManagementSysDaoImpl implements CourseManagementSysDao {
 	}
 	@Override
 	public List<Assignment> getAssignementFilesForInstructor(Course course) {
-		String query = "SELECT  CR.TITLE AS,TK.ID FROM TEACHES TC, TAKES TK, COURSES CR WHERE TC.COURSE_ID = TK.COURSE_ID AND TC.ID = ? AND TK.YEAR = TC.YEAR AND TK.SEMESTER = TC.SEMESTER AND TC.YEAR = date_part('year', CURRENT_DATE)\r\n" + 
-				"AND CR.COURSE_ID = TC.COURSE_ID AND CR.SEMESTER = TC.SEMESTER AND CR.YEAR=TC.YEAR";
-		return jdbcTemplate.query(query, new Object[] { course.getInstructorId() }, new BeanPropertyRowMapper<>(Assignment.class));
+		String query = "SELECT  CR.TITLE,TK.ID FROM TEACHES TC, TAKES TK, COURSES CR WHERE TC.COURSE_ID = TK.COURSE_ID AND TC.ID =? AND TK.YEAR = TC.YEAR AND TK.SEMESTER = TC.SEMESTER AND TC.YEAR = date_part('year', CURRENT_DATE) AND CR.COURSE_ID = TC.COURSE_ID AND CR.SEMESTER = TC.SEMESTER AND CR.YEAR=TC.YEAR";
+		return jdbcTemplate.query(query, new Object[] { course.getId() }, new BeanPropertyRowMapper<>(Assignment.class));
 	}
 	@Override
 	public int getRoleId(String id) {

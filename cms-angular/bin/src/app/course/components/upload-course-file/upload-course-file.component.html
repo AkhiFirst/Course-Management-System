@@ -1,6 +1,7 @@
-<div class="signin-content">
+
   <mat-card>
-  <input type="file" multiple (change)="uploadCourse($event)" placeholder="Upload file" accept=".pdf,.doc,.docx" >
-  <input #showFileNames />
+    <input 
+  <input type="file" name="file" id="file" class="inputfile" multiple (change)="uploadCourse($event)" placeholder="Upload file" accept=".pdf,.doc,.docx" >
+  <label for="file">Choose a file</label>
+  
   </mat-card>
-  </div>

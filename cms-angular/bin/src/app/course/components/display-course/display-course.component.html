@@ -24,14 +24,6 @@
                             </tr>
                         </th>
                     </table>
-                    <!-- <div class="login100-form-title">
-                        Dashboard
-                    </div>
-                    <div class="columnr">
-                    
-                        <a [routerLink]="['/login']"><i class="fa fa-fw fa-power-off"></i> Logout</a>
-                    
-                    </div> -->
                     <hr>
                 </div>
                 <div class="row">
@@ -39,11 +31,11 @@
                         <article class="sample-row card-wrapper col-sm-4">
                             <igx-card>
                                 <igx-card-media height="150px">
-                                    <img src="..\assets\images\images.jpg">
+                                    <img src="..\assets\images\course.gif">
                                 </igx-card-media>
 
                                 <igx-card-header>
-                                    <h3 igxCardHeaderTitle><a [routerLink]="['/home']">{{course.title}}</a></h3>
+                                    <h4 igxCardHeaderTitle style="font-size:14px;font-family: Montserrat-Bold;"><a [routerLink]="['/home']" [queryParams] = "{title: course.title}">{{course.title}}</a></h4>
                                     <h5 igxCardHeaderSubtitle>{{course.course_id}}</h5>
                                 </igx-card-header>
                                 <igx-card-content>

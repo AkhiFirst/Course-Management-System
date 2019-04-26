@@ -29,7 +29,7 @@ public class Course {
 		this.year = year;
 	}
 	private String semester;
-	private String instructorId;
+	private String id;
 	private String type;
 	private String courseFileName;
 	List<MultipartFile> multipartFiles;
@@ -73,14 +73,14 @@ public class Course {
 	/**
 	 * @return the instructorId
 	 */
-	public String getInstructorId() {
-		return instructorId;
+	public String getId() {
+		return id;
 	}
 	/**
 	 * @param instructorId the instructorId to set
 	 */
-	public void setInstructorId(String instructorId) {
-		this.instructorId = instructorId;
+	public void setId(String id) {
+		this.id = id;
 	}
 	/**
 	 * @return the type

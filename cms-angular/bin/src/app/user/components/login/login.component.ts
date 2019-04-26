@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
         else {
           this.userService.sendSubmitMessage("Success::"+this.user.username + "logged in Successfully");
           this.userService.setSession('user',this.user);
-          this.router.navigate(['dashboard']);
+          this.router.navigate(['displaycourse']);
         }
       }
     });
