@@ -46,6 +46,7 @@ export class CourseService {
     })
   };
   this.course.title=title;
+  this.course.type = "Courses";
     //return this.http.post(this.registrationUrl, user, httpHeaderOptions);
     return this.http.post(this.getCourseRelatedFilesUrl, this.course, httpHeaderOptions);
   }
